@@ -7,5 +7,13 @@
   },
   "devDependencies": {
     "nuxt3": "latest"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.3.7",
+    "naive-ui": "^2.19.7",
+    "normalize.css": "^8.0.1",
+    "postcss": "^8.3.9",
+    "tailwindcss": "^2.2.16",
+    "vfonts": "^0.1.0"
   }
 }
