@@ -12,14 +12,17 @@ export default defineNuxtConfig({
   vite: process.env.NODE_ENV !== 'production',
   meta:{
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'public/favicon.ico' }
     ],
     style:[
-      `
-        [v-cloak] {
-          visibility: hidden;
-        }
-      `
+      {
+        cssText:`
+          [v-cloak] {
+            visibility: hidden;
+          }
+        `,
+        type: 'text/css'
+      }
     ]
   }
 })
