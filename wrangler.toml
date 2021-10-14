@@ -1,10 +1,9 @@
 name = "playground"
 type = "javascript"
 account_id = "d47591f619e0063cdc889a9ede488b47"
-route="www.mcswift.me/*"
+route = "www.mcswift.me/*"
 usage_model = "unbound"
 workers_dev = true
-route = ""
 zone_id = ""
 
 [site]
