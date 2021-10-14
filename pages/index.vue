@@ -84,7 +84,7 @@ const store = inject("store") as Store
   flex-direction: column;
   height: calc(100vh - 80px);
 }
-.social-media-nav-item， .home-nav-item{
+.social-media-nav-item, .home-nav-item{
   text-decoration: none;
 }
 /* .social-media-nav-item{
