@@ -1,0 +1,14 @@
+name = "playground"
+type = "javascript"
+account_id = "d47591f619e0063cdc889a9ede488b47"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+bucket = ".output/public"
+entry-point = ".output"
+
+[build]
+command = "NITRO_PRESET=cloudflare yarn nuxt build"
+upload.format = "service-worker"
