@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   ],
   vite: process.env.NODE_ENV !== 'production',
   meta:{
+    title:"McSwift",
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }
     ],
