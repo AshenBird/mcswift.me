@@ -11,4 +11,4 @@ entry-point = ".output"
 
 [build]
 command = "NITRO_PRESET=cloudflare yarn nuxt build"
-upload.format = "service-worker"
+format = "service-worker"
