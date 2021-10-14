@@ -8,5 +8,6 @@ export default defineNuxtConfig({
     ".tsx",
     ".vue",
     ".css"
-  ]
+  ],
+  vite: process.env.NODE_ENV !== 'production'
 })
