@@ -42,7 +42,4 @@ provide("store",store)
 </template>
 
 <style lang="css">
-[v-cloak] {
-  visibility: hidden;
-}
 </style>

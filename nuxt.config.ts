@@ -9,5 +9,17 @@ export default defineNuxtConfig({
     ".vue",
     ".css"
   ],
-  vite: process.env.NODE_ENV !== 'production'
+  vite: process.env.NODE_ENV !== 'production',
+  meta:{
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    style:[
+      `
+        [v-cloak] {
+          visibility: hidden;
+        }
+      `
+    ]
+  }
 })
