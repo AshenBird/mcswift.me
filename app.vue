@@ -11,12 +11,19 @@ const store = reactive({
 })
 
 
+
 const isDark = computed(()=>store.theme === "dark")
 
 const theme = computed(()=>store.theme==="dark"?darkTheme:undefined)
 
 onMounted(()=>{
-  store.theme = useOsTheme().value
+  store.theme = sessionStorage.getItem("theme")||useOsTheme().value
+})
+
+watch(()=>store.theme, (n,o)=>{
+  if(n===o)return;
+  if(!sessionStorage)return;
+  sessionStorage.setItem('theme', n);
 })
 
 provide("store",store)
