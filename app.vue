@@ -29,7 +29,7 @@ provide("store",store)
 </script>
 
 <template>
-  <div>
+  <div v-cloak>
     <NConfigProvider
       :theme="theme"
       :locale="zhCN"
@@ -40,3 +40,9 @@ provide("store",store)
     </NConfigProvider>
   </div>
 </template>
+
+<style lang="css">
+[v-cloak] {
+  visibility: hidden;
+}
+</style>
