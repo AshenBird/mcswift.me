@@ -751,6 +751,23 @@
     resolve-from "^5.0.0"
     rollup-pluginutils "^2.8.2"
 
+"@vicons/antd@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.npmmirror.com/@vicons/antd/download/@vicons/antd-0.11.0.tgz#3d28952d028aed712dca61cb81dbdb11454c5542"
+  integrity sha1-PSiVLQKK7XEtymHLgdvbEUVMVUI=
+
+"@vicons/fa@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.npmmirror.com/@vicons/fa/download/@vicons/fa-0.11.0.tgz#dc6780b25b7943734e7c75d74df2f4443b0572ae"
+  integrity sha1-3GeAslt5Q3NOfHXXTfL0RDsFcq4=
+
+"@vicons/utils@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmmirror.com/@vicons/utils/download/@vicons/utils-0.1.4.tgz#accea9226ff0078ebd80d00dcb63ef5e74b210ff"
+  integrity sha1-rM6pIm/wB469gNANy2PvXnSyEP8=
+  dependencies:
+    "@xicons/utils" "^0.1.4"
+
 "@vitejs/plugin-vue-jsx@^1.2.0":
   version "1.2.0"
   resolved "https://registry.npmmirror.com/@vitejs/plugin-vue-jsx/download/@vitejs/plugin-vue-jsx-1.2.0.tgz#a4216bdbb8b12800537d39e3b5711fcf2eb470ef"
@@ -1088,6 +1105,13 @@
   dependencies:
     "@webassemblyjs/ast" "1.11.1"
     "@xtuc/long" "4.2.2"
+
+"@xicons/utils@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmmirror.com/@xicons/utils/download/@xicons/utils-0.1.4.tgz#cece50613b34d4b4c71e73bb0be92981067e11e1"
+  integrity sha1-zs5QYTs01LTHHnO7C+kpgQZ+EeE=
+  dependencies:
+    css-render "^0.13.2"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -1828,6 +1852,15 @@ css-minimizer-webpack-plugin@^3.1.1:
     schema-utils "^3.1.0"
     serialize-javascript "^6.0.0"
     source-map "^0.6.1"
+
+css-render@^0.13.2:
+  version "0.13.9"
+  resolved "https://registry.npmmirror.com/css-render/download/css-render-0.13.9.tgz#56f28c180a83a10ec610a12a9ad9fec087ac9dc1"
+  integrity sha1-VvKMGAqDoQ7GEKEqmtn+wIesncE=
+  dependencies:
+    "@emotion/hash" "~0.8.0"
+    "@types/node" "~14.14.31"
+    csstype "~3.0.5"
 
 css-render@^0.15.3, css-render@^0.15.6, css-render@~0.15.6:
   version "0.15.6"
