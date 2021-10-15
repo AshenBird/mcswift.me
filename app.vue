@@ -17,11 +17,9 @@ const isMounted = ref(false)
 console.log("created",store.theme)
 onMounted(()=>{
   isMounted.value = true
-
-  store.theme = localStorage.getItem("theme")||useOsTheme().value
-  console.log("mounted",store.theme)
   nextTick(()=>{
-    console.log(store.theme)
+    store.theme = localStorage.getItem("theme")||useOsTheme().value
+    console.log("mounted",store.theme)
   })
 })
 
