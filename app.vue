@@ -20,7 +20,7 @@ onMounted(()=>{
 
   store.theme = localStorage.getItem("theme")||useOsTheme().value
   console.log("mounted",store.theme)
-  setTimeout(()=>{
+  nextTick(()=>{
     console.log(store.theme)
   })
 })
