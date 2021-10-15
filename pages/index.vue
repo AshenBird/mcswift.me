@@ -8,8 +8,6 @@ import { NTooltip } from "naive-ui"
 
 import { ZhihuCircleFilled as ZhihuIcon, GithubFilled as GithubIcon } from "@vicons/antd"
 
-
-
 const store = inject("store") as Store
 store.title = ""
 
