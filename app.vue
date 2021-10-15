@@ -17,8 +17,12 @@ const isMounted = ref(false)
 console.log("created",store.theme)
 onMounted(()=>{
   isMounted.value = true
+
   store.theme = localStorage.getItem("theme")||useOsTheme().value
   console.log("mounted",store.theme)
+  setTimeout(()=>{
+    console.log(store.theme)
+  })
 })
 
 // 监听主题变化并记录
