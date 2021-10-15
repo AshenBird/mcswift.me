@@ -17,6 +17,11 @@ export default defineNuxtConfig({
     ],
     style:[
       {
+        text:`
+          [v-cloak] {
+            visibility: hidden;
+          }
+        `,
         cssText:`
           [v-cloak] {
             visibility: hidden;

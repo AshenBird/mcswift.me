@@ -26,8 +26,10 @@ const toHome = ()=>router.push('/')
               </span>
             </template>
           </n-page-header>
-          <NButton v-if="store.theme === 'dark'" @click="()=>{store.theme = 'light'}" size="small">使用亮模式</NButton>
-          <NButton v-else size="small" @click="()=>{store.theme = 'dark'}">使用暗模式</NButton>
+          <template>
+            <NButton v-if="store.theme === 'dark'" @click="()=>{store.theme = 'light'}" size="small">使用亮模式</NButton>
+            <NButton v-else size="small" @click="()=>{store.theme = 'dark'}">使用暗模式</NButton>
+          </template>
         </div>
       </NLayoutHeader>
       <NLayoutContent>
