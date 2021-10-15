@@ -12,7 +12,7 @@ const store = reactive({
 })
 
 const isDark = computed(()=>store.theme === "dark")
-const theme = computed(()=>store.theme === "dark"?darkTheme:undefined)
+const theme = computed(()=>store.theme === "dark"?darkTheme:null)
 const isMounted = ref(false)
 console.log("created",store.theme)
 onMounted(()=>{
