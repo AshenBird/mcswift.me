@@ -7,7 +7,8 @@ import { useOsTheme, darkTheme } from 'naive-ui'
 import { zhCN, dateZhCN } from 'naive-ui'
 
 const store = reactive({
-  theme:""
+  theme:"",
+  title:"",
 })
 
 const isDark = computed(()=>store.theme === "dark")
@@ -18,11 +19,13 @@ onMounted(()=>{
   store.theme = localStorage.getItem("theme")||useOsTheme().value
 })
 
+// 监听主题变化并记录
 watch(()=>store.theme, (n,o)=>{
   if(n===o)return;
   if(!localStorage)return;
   localStorage.setItem('theme', n);
 })
+
 
 provide("store",store)
 
@@ -42,4 +45,5 @@ provide("store",store)
 </template>
 
 <style lang="css">
+
 </style>

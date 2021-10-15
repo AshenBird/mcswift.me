@@ -2,64 +2,61 @@
 import type { Store } from "../interface"
 
 import { NSpace, NA, NIcon } from "naive-ui"
-import { NLayoutContent, NLayout, NLayoutHeader } from "naive-ui"
+// import { NLayoutContent, NLayout, NLayoutHeader } from "naive-ui"
 // import { NMenu } from "naive-ui"
-import { NButton } from "naive-ui"
+import { NTooltip } from "naive-ui"
+
 import { ZhihuCircleFilled as ZhihuIcon, GithubFilled as GithubIcon } from "@vicons/antd"
 
-// const mode = ref("")
+
+
 const store = inject("store") as Store
+store.title = ""
+
 </script>
 
 <template>
-    <NLayout>
-      <NLayoutHeader >
-        <div class="home-header-container">
-          <NButton v-if="store.theme === 'dark'" @click="()=>{store.theme = ''}" size="small">使用亮模式</NButton>
-          <NButton v-else size="small" @click="()=>{store.theme = 'dark'}">使用暗模式</NButton>
-        </div>
-        <!-- <NMenu></NMenu> -->
-      </NLayoutHeader>
-      <NLayoutContent>
-        <div class="home-container">
-          <nav class="home-nav">
-            <NSpace justify="center" align="center">
-              <NA class="home-nav-item" href="https://blog.mcswift.me" target="_blank">博客</NA>
-              <div class="home-nav-divider"></div>
-              <NA class="home-nav-item" href="/">作品</NA>
-              <div class="home-nav-divider"></div>
-              <NA class="home-nav-item" href="/">联系我</NA>
-              <div class="home-nav-divider"></div>
-              <NA class="home-nav-item" href="/" >关于本网站</NA>
-            </NSpace>
-          </nav>
-          <nav class="social-media-nav">
-            <NSpace style="width: 100px;" justify="space-between" align="center">
-              <a class="social-media-nav-item" href="https://github.com/AshenBird" target="_blank">
-                <NIcon size="28" :color="store.theme==='dark'?'#ffffff':'#000000'">
-                  <GithubIcon/>
-                </NIcon>
-              </a>
-              <a class="social-media-nav-item" href="https://www.zhihu.com/people/mcswift-pro" target="_blank">
-                <NIcon size="28" color="#0066FF">
-                  <ZhihuIcon/>
-                </NIcon>
-              </a>
-            </NSpace>
-          </nav>
-        </div>
-      </NLayoutContent>
-    </NLayout>
-  <!-- </div> -->
+  <div class="home-container">
+    <nav class="home-nav">
+      <NSpace justify="center" align="center">
+        <NA class="home-nav-item" href="https://blog.mcswift.me" target="_blank">博客</NA>
+        <div class="home-nav-divider"></div>
+        <NTooltip trigger="click">
+          <template #trigger>
+            <NA class="home-nav-item" href="javascript:void(0);" >作品</NA>
+          </template>
+          <span>施工中...</span>
+        </NTooltip>
+        <div class="home-nav-divider"></div>
+        <NTooltip trigger="click">
+          <template #trigger>
+            <NA class="home-nav-item" href="javascript:void(0);" >联系我</NA>
+          </template>
+          <span>施工中...</span>
+        </NTooltip>
+        <div class="home-nav-divider"></div>
+        <NuxtLink to="/about">
+          <NA class="home-nav-item" href="javascript:void(0);" >关于本站</NA>
+        </NuxtLink>
+      </NSpace>
+    </nav>
+    <nav class="social-media-nav">
+      <NSpace style="width: 100px;" justify="space-between" align="center">
+        <a class="social-media-nav-item" href="https://github.com/AshenBird" target="_blank">
+          <NIcon size="28" :color="store.theme==='dark'?'#ffffff':'#000000'">
+            <GithubIcon/>
+          </NIcon>
+        </a>
+        <a class="social-media-nav-item" href="https://www.zhihu.com/people/mcswift-pro" target="_blank">
+          <NIcon size="28" color="#0066FF">
+            <ZhihuIcon/>
+          </NIcon>
+        </a>
+      </NSpace>
+    </nav>
+  </div>
 </template>
-<style lang="postcss">
-.home-header-container{
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 40px;
-}
+<style>
 .home-nav{
   font-size: 16px;
 }
@@ -79,6 +76,7 @@ const store = inject("store") as Store
 }
 
 .home-container{
+  align-self: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -87,7 +85,4 @@ const store = inject("store") as Store
 .social-media-nav-item, .home-nav-item{
   text-decoration: none;
 }
-/* .social-media-nav-item{
-  color: #000;
-} */
 </style>
