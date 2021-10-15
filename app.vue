@@ -19,6 +19,7 @@ const isMounted = ref(false)
 
 onMounted(()=>{
   store.theme = localStorage.getItem("theme")||useOsTheme().value
+  console.log(store.theme)
   isMounted.value = true
 })
 

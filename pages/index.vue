@@ -35,7 +35,7 @@ store.title = ""
           <span>施工中...</span>
         </NTooltip>
         <div class="home-nav-divider"></div>
-        <NuxtLink to="/about">
+        <NuxtLink class="home-nav-item"  to="/about">
           <NA class="home-nav-item" href="javascript:void(0);" >关于本站</NA>
         </NuxtLink>
       </NSpace>
