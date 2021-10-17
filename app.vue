@@ -21,14 +21,14 @@ const isMounted = ref(false)
 onMounted(()=>{
   isMounted.value = true
   // theme.value = localStorage.getItem("theme")||useOsTheme().value
-  store.theme = localStorage.getItem("theme")||useOsTheme().value
+  // store.theme = localStorage.getItem("theme")||useOsTheme().value
 })
 
 // 监听主题变化并记录
 watch(()=>store.theme, (n,o)=>{
   if(n===o)return;
   if(!localStorage)return;
-  console.log( "theme change:",n)
+  // console.log( "theme change:",n)
   localStorage.setItem('theme', n);
 })
 provide("custoStore",store)
@@ -36,7 +36,7 @@ provide("custoStore",store)
 </script>
 
 <template>
-  <div v-show="isMounted"  id="app">
+  <div id="app">
     <NConfigProvider
       :theme="theme"
       :locale="zhCN"
