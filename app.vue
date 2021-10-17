@@ -17,9 +17,9 @@ const theme = ref<null|BuiltInGlobalTheme>(null)
 const isMounted = ref(false)
 onMounted(()=>{
   isMounted.value = true
-  nextTick(()=>{
+  setTimeout(()=>{
     store.theme = localStorage.getItem("theme")||useOsTheme().value
-  })
+  }, 1000)
 })
 
 // 监听主题变化并记录
