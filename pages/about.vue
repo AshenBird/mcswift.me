@@ -55,9 +55,9 @@ store.title = "关于本站"
   </div>
 </template>
 <style lang="css">
-@media (max-width:1200px) {
+/* @media (max-width:1200px) {
   .about{
-    padding: 0 53px;
+    padding: 0 38px;
   }
-}
+} */
 </style>
