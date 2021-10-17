@@ -45,6 +45,9 @@ const setTheme = (v)=>{
     </NLayout>
 </template>
 <style>
+.default-layout{
+  min-height: 100vh;
+}
 .default-header-container{
   box-sizing: border-box;
   width: 100%;
@@ -56,7 +59,6 @@ const setTheme = (v)=>{
 }
 .default-container{
   max-width: 1200px;
-  min-height: 100vh;
   margin: auto;
   padding: 15px 53px;
   display: flex;
