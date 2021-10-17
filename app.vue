@@ -5,18 +5,22 @@ import { NConfigProvider,NGlobalStyle } from 'naive-ui'
 import { useOsTheme, darkTheme } from 'naive-ui'
 // locale & dateLocale
 import { zhCN, dateZhCN } from 'naive-ui'
+import { BuiltInGlobalTheme } from 'naive-ui/lib/themes/interface'
 
 const store = reactive({
   theme:"",
   title:"",
 })
 
-const isDark = computed(()=>store.theme === "dark")
-const theme = computed(()=>theme.value=store.theme === "dark"?darkTheme:undefined)
+const theme = useState<string>("theme",()=>"light")
+
+const isDark = computed(()=>theme.value === "dark")
+// const theme = computed(()=>theme.value=store.theme === "dark"?darkTheme:undefined)
 const isMounted = ref(false)
 onMounted(()=>{
   isMounted.value = true
-  store.theme = localStorage.getItem("theme")||useOsTheme().value
+  theme.value = localStorage.getItem("theme")||useOsTheme().value
+  // store.theme = localStorage.getItem("theme")||useOsTheme().value
 })
 
 // 监听主题变化并记录
@@ -32,7 +36,7 @@ provide("store",store)
 <template>
   <div  id="app">
     <NConfigProvider
-      :theme="theme"
+      :theme="theme=== `dark`?darkTheme:null"
       :locale="zhCN"
       :date-locale="dateZhCN"
       :class="{'__dark-theme':isDark}">
