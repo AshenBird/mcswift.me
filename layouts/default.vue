@@ -58,7 +58,7 @@ const setTheme = (v)=>{
   max-width: 1200px;
   min-height: 100vh;
   margin: auto;
-  padding: 15px 38px;
+  padding: 15px 53px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
