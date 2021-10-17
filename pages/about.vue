@@ -63,8 +63,8 @@ store.title = "关于本站"
 
 @media (max-width:600px) {
   .about{
-    padding: 0 0;
-    align-self: center;
+    padding: 0 15px;
+    /* align-self: center; */
   }
 }
 </style>

@@ -61,6 +61,6 @@ const setTheme = (v)=>theme.value=v
   align-items: flex-start;
 }
 .at-home .n-page-header__back{
-  visibility: hidden;
+  visibility: collapse;
 }
 </style>
