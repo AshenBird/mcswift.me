@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     ".vue",
     ".css"
   ],
-  vite: process.env.NODE_ENV !== 'production',
+  vite: false,//process.env.NODE_ENV !== 'production',
   meta:{
     title:"McSwift",
     link: [

@@ -34,7 +34,7 @@ provide("store",store)
 </script>
 
 <template>
-  <div v-show="isMounted">
+  <div v-show="isMounted" id="app">
     <NConfigProvider
       :theme="theme"
       :locale="zhCN"

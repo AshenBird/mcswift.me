@@ -14,7 +14,7 @@ const toHome = ()=>router.push('/')
 </script>
 
 <template>
-    <NLayout :class="{'at-home':route.fullPath==='/'}">
+    <NLayout :class="{'at-home':route.fullPath==='/'}" class="default-layout">
       <NLayoutHeader >
         <div class="default-header-container">
           <n-page-header
