@@ -57,14 +57,7 @@ store.title = "关于本站"
 <style lang="css">
 @media (max-width:1200px) {
   .about{
-    padding: 0 20vw;
-  }
-}
-
-@media (max-width:600px) {
-  .about{
-    padding: 0 15px;
-    /* align-self: center; */
+    padding: 0 53px;
   }
 }
 </style>
