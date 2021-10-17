@@ -8,35 +8,37 @@ import { zhCN, dateZhCN } from 'naive-ui'
 // import { BuiltInGlobalTheme } from 'naive-ui/lib/themes/interface'
 
 const store = reactive({
-  theme:"",
+  theme:"dark",
   title:"",
 })
 
-const theme = useState<string>("theme",()=>"light")
+const themeType = useState<string>("theme",()=>"")
 
-const isDark = computed(()=>theme.value === "dark")
-// const theme = computed(()=>theme.value=store.theme === "dark"?darkTheme:undefined)
+const isDark = computed(()=>store.theme === "dark")
+const theme = computed(()=>store.theme === "dark"?darkTheme:null)
+
 const isMounted = ref(false)
 onMounted(()=>{
   isMounted.value = true
-  theme.value = localStorage.getItem("theme")||useOsTheme().value
-  // store.theme = localStorage.getItem("theme")||useOsTheme().value
+  // theme.value = localStorage.getItem("theme")||useOsTheme().value
+  store.theme = localStorage.getItem("theme")||useOsTheme().value
 })
 
 // 监听主题变化并记录
-watch(()=>theme.value, (n,o)=>{
+watch(()=>store.theme, (n,o)=>{
   if(n===o)return;
   if(!localStorage)return;
+  console.log( "theme change:",n)
   localStorage.setItem('theme', n);
 })
-provide("store",store)
+provide("custoStore",store)
 
 </script>
 
 <template>
   <div v-show="isMounted"  id="app">
     <NConfigProvider
-      :theme="theme=== `dark`?darkTheme:null"
+      :theme="theme"
       :locale="zhCN"
       :date-locale="dateZhCN"
       :class="{'__dark-theme':isDark}">

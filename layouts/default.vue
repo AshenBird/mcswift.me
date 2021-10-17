@@ -3,7 +3,7 @@ import type { Store } from "../interface"
 import { NLayoutContent, NLayout, NLayoutHeader } from "naive-ui"
 import { NButton, NPageHeader } from "naive-ui"
 
-const store = inject("store") as Store
+const store = inject("custoStore") as Store
 const route= useRoute()
 const router = useRouter()
 
@@ -11,9 +11,12 @@ const handleBack = ()=>router.back()
 
 const toHome = ()=>router.push('/')
 
-const theme = useState<string>("theme")
+const themeType = useState<string>("theme")
 
-const setTheme = (v)=>theme.value=v
+const setTheme = (v)=>{
+  store.theme=v
+  themeType.value = v  
+}
 
 </script>
 
@@ -30,7 +33,7 @@ const setTheme = (v)=>theme.value=v
               </span>
             </template>
           </n-page-header>
-          <NButton v-if="theme === 'dark'" @click="setTheme('light')" size="small">使用亮模式</NButton>
+          <NButton v-if="store.theme === 'dark'" @click="setTheme('light')" size="small">使用亮模式</NButton>
           <NButton v-else size="small" @click="setTheme(`dark`)">使用暗模式</NButton>
         </div>
       </NLayoutHeader>
@@ -53,6 +56,7 @@ const setTheme = (v)=>theme.value=v
 }
 .default-container{
   max-width: 1200px;
+  min-height: 100vh;
   margin: auto;
   padding: 15px;
   display: flex;
