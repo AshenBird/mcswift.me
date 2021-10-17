@@ -13,13 +13,11 @@ const store = reactive({
 })
 
 const isDark = computed(()=>store.theme === "dark")
-const theme = ref<null|BuiltInGlobalTheme>(null)
+const theme = computed(()=>theme.value=store.theme === "dark"?darkTheme:null)
 const isMounted = ref(false)
 onMounted(()=>{
   isMounted.value = true
-  setTimeout(()=>{
     store.theme = localStorage.getItem("theme")||useOsTheme().value
-  }, 1000)
 })
 
 // 监听主题变化并记录
@@ -27,14 +25,13 @@ watch(()=>store.theme, (n,o)=>{
   if(n===o)return;
   if(!localStorage)return;
   localStorage.setItem('theme', n);
-  theme.value=store.theme === "dark"?darkTheme:null
 })
 provide("store",store)
 
 </script>
 
 <template>
-  <div v-show="isMounted" id="app">
+  <div  id="app">
     <NConfigProvider
       :theme="theme"
       :locale="zhCN"
