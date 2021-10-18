@@ -20,6 +20,7 @@ const theme = computed(()=>store.theme === "dark"?darkTheme:null)
 const isMounted = ref(false)
 onMounted(()=>{
   isMounted.value = true
+  
   // theme.value = localStorage.getItem("theme")||useOsTheme().value
   // store.theme = localStorage.getItem("theme")||useOsTheme().value
 })
@@ -36,7 +37,7 @@ provide("custoStore",store)
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" :style="isMounted?``:`visibility:hidden;`">
     <NConfigProvider
       :theme="theme"
       :locale="zhCN"
