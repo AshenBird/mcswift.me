@@ -37,7 +37,7 @@ provide("custoStore",store)
 </script>
 
 <template>
-  <div id="app" :style="isMounted?``:`visibility:hidden;`">
+  <div id="app" :style="isMounted?`visibility: visible`:`visibility: hidden;`">
     <NConfigProvider
       :theme="theme"
       :locale="zhCN"
