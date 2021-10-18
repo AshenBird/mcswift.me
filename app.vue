@@ -19,7 +19,7 @@ const theme = computed(()=>store.theme === "dark"?darkTheme:null)
 
 const isMounted = ref(false)
 onMounted(async ()=>{
-  setTimeout(()=>isMounted.value = true, 5000);
+  setTimeout(()=>isMounted.value = true, 500);
   // theme.value = localStorage.getItem("theme")||useOsTheme().value
   // store.theme = localStorage.getItem("theme")||useOsTheme().value
 })
@@ -47,4 +47,9 @@ provide("custoStore",store)
     </NConfigProvider>
   </div>
 </template>
+<style>
+#app {
+  transition: all 0.5s;
+}
 
+</style>
