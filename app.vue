@@ -19,9 +19,7 @@ const theme = computed(()=>store.theme === "dark"?darkTheme:null)
 
 const isMounted = ref(false)
 onMounted(async ()=>{
-  await nextTick()
-  isMounted.value = true
-  
+  setTimeout(()=>isMounted.value = true, 5000);
   // theme.value = localStorage.getItem("theme")||useOsTheme().value
   // store.theme = localStorage.getItem("theme")||useOsTheme().value
 })
