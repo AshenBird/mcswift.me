@@ -7,7 +7,11 @@
     "update": "yarn upgrade nuxt3:latest"
   },
   "devDependencies": {
-    "nuxt3": "latest"
+    "nuxt3": "latest",
+    "postcss": "^8.3.9",
+    "postcss-loader": "^6.2.0",
+    "tailwindcss": "^2.2.16",
+    "autoprefixer": "^10.3.7"
   },
   "dependencies": {
     "@css-render/vue3-ssr": "^0.15.6",
@@ -16,11 +20,8 @@
     "@vicons/utils": "^0.1.4",
     "@vue/reactivity": "^3.2.20",
     "@vue/shared": "^3.2.20",
-    "autoprefixer": "^10.3.7",
     "naive-ui": "^2.19.11",
     "normalize.css": "^8.0.1",
-    "postcss": "^8.3.9",
-    "tailwindcss": "^2.2.16",
     "vfonts": "^0.1.0",
     "vue": "^3.2.20"
   }
