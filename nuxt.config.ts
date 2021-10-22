@@ -15,15 +15,5 @@ export default defineNuxtConfig({
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }
     ],
-    style:[
-      {
-        text:`
-          [v-cloak] {
-            visibility: hidden;
-          }
-        `,
-        type: 'text/css'
-      }
-    ]
   },
 })

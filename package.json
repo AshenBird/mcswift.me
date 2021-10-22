@@ -10,13 +10,14 @@
     "nuxt3": "latest"
   },
   "dependencies": {
+    "@css-render/vue3-ssr": "^0.15.6",
     "@vicons/antd": "^0.11.0",
     "@vicons/fa": "^0.11.0",
     "@vicons/utils": "^0.1.4",
     "@vue/reactivity": "^3.2.20",
     "@vue/shared": "^3.2.20",
     "autoprefixer": "^10.3.7",
-    "naive-ui": "^2.19.7",
+    "naive-ui": "^2.19.11",
     "normalize.css": "^8.0.1",
     "postcss": "^8.3.9",
     "tailwindcss": "^2.2.16",
