@@ -16,6 +16,7 @@
     "@types/node": "^16.11.6",
     "@vitejs/plugin-vue": "^1.9.3",
     "@vitejs/plugin-vue-jsx": "^1.2.0",
+    "@vue/compiler-sfc": "^3.2.20",
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
