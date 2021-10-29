@@ -3,11 +3,15 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
-    "strict": false,
+    "strict": true,
     "allowJs": true,
     "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "types": [
-      "node"
-    ]
+      "node","vite/client"
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    },
   }
 }

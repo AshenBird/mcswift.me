@@ -43,7 +43,8 @@ provide("custoStore",store)
       :date-locale="dateZhCN"
       :class="{'__dark-theme':isDark}">
       <NGlobalStyle />
-      <NuxtPage />
+      aaa
+      <!-- <NuxtPage /> -->
     </NConfigProvider>
   </div>
 </template>
