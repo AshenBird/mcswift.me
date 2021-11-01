@@ -10,5 +10,6 @@
     "types": [
       "node","vite/client"
     ],
-  }
+  },
+  "exclude": ["./server.js", "dist"]
 }

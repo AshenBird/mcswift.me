@@ -18,7 +18,9 @@ store.title = "首页"
   <div class="home-container">
     <nav class="home-nav">
       <NSpace justify="center" align="center">
-        <NA class="home-nav-item" href="https://blog.mcswift.me" target="_blank">博客</NA>
+        <router-link class="home-nav-item"  to="/blog">
+          <NA class="home-nav-item" href="javascript:void(0);" >博客</NA>
+        </router-link>
         <div class="home-nav-divider"></div>
         <NTooltip trigger="click">
           <template #trigger>

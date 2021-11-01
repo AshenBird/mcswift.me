@@ -3,6 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
+    "jsx": "preserve",
     "strict": true,
     "allowJs": true,
     "resolveJsonModule": true,
@@ -10,8 +11,5 @@
     "types": [
       "node","vite/client"
     ],
-    "paths": {
-      "@/*": ["./src/client"]
-    },
   }
 }

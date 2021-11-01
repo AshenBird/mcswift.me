@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import "@/assets/index.css"
 // import "normalize.css"
 import { NConfigProvider,NGlobalStyle } from 'naive-ui'
 // theme
@@ -51,7 +51,9 @@ provide("custoStore",store)
       :locale="zhCN"
       :date-locale="dateZhCN"
       :class="{'__dark-theme':isDark}">
-      <NGlobalStyle v-if="isMounted" />
+      <!-- <client-only> -->
+        <NGlobalStyle v-if="isMounted" />
+      <!-- </client-only> -->
       <DefaultLayout>
         <RouterView></RouterView>
       </DefaultLayout>

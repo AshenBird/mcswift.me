@@ -3,7 +3,6 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite';
 import Markdown from 'vite-plugin-md'
 import { resolve } from "path";
-
 export default defineConfig({
   plugins: [
     // 讲 markdown 文件用 vue 插件进行构建
@@ -14,15 +13,16 @@ export default defineConfig({
     Markdown(),
   ],
   build: {
-    minify: false,
-    rollupOptions:{
-      input: resolve(__dirname, "./public/index.html"),
-    }
+    // minify: false,
+  },
+  ssgOptions:{
+    mock: true
   },
   resolve: {
     // 别名
     alias: {
       "@": resolve(__dirname, "./src/client"),
+      "~": resolve(__dirname, "./drafts"),
     },
   },
 })
