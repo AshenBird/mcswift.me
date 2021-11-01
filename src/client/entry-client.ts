@@ -1,4 +1,4 @@
-import { createApp } from './main'
+import { createApp } from './main.ssr'
 
 const { app, router } = createApp()
 

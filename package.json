@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development vite",
+    "dev": "cross-env END=client node server",
     "build": "npm run build:client && npm run build:server",
     "build:noExternal": "npm run build:client && npm run build:server:noExternal",
     "build:client": "vite build --ssrManifest --outDir dist/client",
@@ -23,7 +23,7 @@
     "serve-static": "^1.14.1",
     "vite": "^2.6.12",
     "vite-plugin-md": "^0.11.2",
-    "vite-plugin-node": "^0.0.14"
+    "vite-ssg": "^0.15.4"
   },
   "dependencies": {
     "@css-render/vue3-ssr": "^0.15.6",
@@ -31,11 +31,13 @@
     "@vicons/fa": "^0.11.0",
     "@vicons/utils": "^0.1.4",
     "@vue/reactivity": "^3.2.20",
+    "@vue/server-renderer": "^3.2.20",
     "@vue/shared": "^3.2.20",
+    "@vueuse/head": "^0.6.0",
     "naive-ui": "^2.19.11",
     "normalize.css": "^8.0.1",
     "vfonts": "^0.1.0",
     "vue": "^3.2.20",
-    "vue-router": "^4.0.0"
+    "vue-router": "^4.0.12"
   }
 }

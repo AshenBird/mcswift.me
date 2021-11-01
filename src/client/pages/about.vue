@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import type {Store} from "../interface"
+import type {Store} from "../../../interface"
 import { NA, NH2,NH3, NUl, NLi} from "naive-ui"
+import { inject } from "vue";
 const store = inject("custoStore") as Store;
 store.title = "关于本站"
 </script>

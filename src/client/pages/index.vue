@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Store } from "../interface"
+import type {Store} from "../../../interface"
 
 import { NSpace, NA, NIcon } from "naive-ui"
 // import { NLayoutContent, NLayout, NLayoutHeader } from "naive-ui"
@@ -7,6 +7,7 @@ import { NSpace, NA, NIcon } from "naive-ui"
 import { NTooltip } from "naive-ui"
 
 import { ZhihuCircleFilled as ZhihuIcon, GithubFilled as GithubIcon } from "@vicons/antd"
+import { inject } from "vue"
 
 const store = inject("custoStore") as Store
 store.title = "首页"
@@ -33,9 +34,9 @@ store.title = "首页"
           <span>施工中...</span>
         </NTooltip>
         <div class="home-nav-divider"></div>
-        <NuxtLink class="home-nav-item"  to="/about">
+        <router-link class="home-nav-item"  to="/about">
           <NA class="home-nav-item" href="javascript:void(0);" >关于本站</NA>
-        </NuxtLink>
+        </router-link>
       </NSpace>
     </nav>
     <nav class="social-media-nav">

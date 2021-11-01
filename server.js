@@ -1,26 +1,24 @@
-import * as fs from 'fs'
-import * as path  from 'path'
-import express from 'express'
-import vite from "vite"
+// @ts-check
+const fs = require('fs')
+const path = require('path')
+const express = require('express')
 
-
-// 测试环境判断变量
 const isTest = process.env.NODE_ENV === 'test' || !!process.env.VITE_TEST_BUILD
 
-// 服务启动函数
 async function createServer(
   root = process.cwd(),
   isProd = process.env.NODE_ENV === 'production'
 ) {
+  // @ts-ignore
   const resolve = (p) => path.resolve(__dirname, p)
 
-  // const indexProd = isProd
-  //   ? fs.readFileSync(resolve('dist/client/index.html'), 'utf-8')
-  //   : ''
+  const indexProd = isProd
+    ? fs.readFileSync(resolve('dist/client/index.html'), 'utf-8')
+    : ''
 
   const manifest = isProd
     ? // @ts-ignore
-      (await ('./dist/client/ssr-manifest.json')).default
+      require('./dist/client/ssr-manifest.json')
     : {}
 
   const app = express()
@@ -29,9 +27,8 @@ async function createServer(
    * @type {import('vite').ViteDevServer}
    */
   let vite
-
   if (!isProd) {
-    vite = (await import('vite')).createServer({
+    vite = await require('vite').createServer({
       root,
       logLevel: isTest ? 'error' : 'info',
       server: {
@@ -47,9 +44,11 @@ async function createServer(
     // use vite's connect instance as middleware
     app.use(vite.middlewares)
   } else {
-    app.use((await import('compression'))())
+    // @ts-ignore
+    app.use(require('compression')())
     app.use(
-      (await import('serve-static')).default(resolve('dist/client'), {
+      // @ts-ignore
+      require('serve-static')(resolve('dist/client'), {
         index: false
       })
     )
@@ -60,37 +59,46 @@ async function createServer(
       const url = req.originalUrl
 
       let template, render
-      // if (!isProd) {
+      if (!isProd) {
         // always read fresh template in dev
-        template = fs.readFileSync(resolve('index.html'), 'utf-8')
+        template = fs.readFileSync(resolve('public/index.html'), 'utf-8')
         template = await vite.transformIndexHtml(url, template)
-        render = (await vite.ssrLoadModule('/src/entry-server.ts')).render
-      // } else {
-      //   template = indexProd
-      //   // @ts-ignore
-      //   render = (await import('./dist/server/entry-server.js')).render
-      // }
+        render = (await vite.ssrLoadModule('/src/client/entry-server.ts')).render
+      } else {
+        template = indexProd
+        // @ts-ignore
+        render = require('./dist/server/entry-server.js').render
+      }
 
-      const [appHtml, preloadLinks] = await render(url, manifest, __dirname)
+      const [appHtml, preloadLinks, cssHtml] = await render(url, manifest, __dirname)
 
       const html = template
         .replace(`<!--preload-links-->`, preloadLinks)
         .replace(`<!--app-html-->`, appHtml)
+        .replace(`<!--css-html-->`, cssHtml)
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
+      // @ts-ignore
       vite && vite.ssrFixStacktrace(e)
+      // @ts-ignore
       console.log(e.stack)
+      // @ts-ignore
       res.status(500).end(e.stack)
     }
   })
 
+  // @ts-ignore
   return { app, vite }
 }
-const {app} = await  createServer()
 
-app.listen(3000, () => {
-  console.log('http://localhost:3000')
-})
+if (!isTest) {
+  createServer().then(({ app }) =>
+    app.listen(3000, () => {
+      console.log('http://localhost:3000')
+    })
+  )
+}
 
-export const viteNodeApp = app;
+// for test use
+exports.createServer = createServer
