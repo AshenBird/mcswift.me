@@ -8,7 +8,7 @@
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr src/client/entry-server.ts --outDir dist/server",
     "build:server:noExternal": "vite build --config vite.config.noexternal.ts --ssr src/entry-server.ts --outDir dist/server",
-    "build:ssg": "cross-env MODE=SSG vite-ssg build",
+    "build:ssg": "cross-env MODE=SSG vite-ssg build --outDir dist/static",
     "generate": "vite build --ssrManifest --outDir dist/static && npm run build:server && esno scripts/pre-render.ts",
     "serve": "cross-env NODE_ENV=production node server",
     "debug": "node --inspect-brk server"

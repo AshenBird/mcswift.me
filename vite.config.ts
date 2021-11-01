@@ -13,6 +13,7 @@ export default defineConfig({
     Markdown(),
   ],
   build: {
+    outDir:process.env.MODE==="SSG"?"dist/static":"dist"
     // minify: false,
   },
   ssgOptions:{
