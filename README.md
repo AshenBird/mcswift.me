@@ -1,93 +1,32 @@
-# McSwift 的个人网站
+# Nuxt 3 Minimal Starter
 
-## Setup | 配置
+We recommend to look at the [documentation](https://v3.nuxtjs.org).
 
-### 环境
+## Setup
 
-- node 不低于 v14 的版本，建议使用最新的 LTS 版本
+Make sure to install the dependencies
 
-### 安装依赖
-
-``` shell
-
-yarn
-
-# or
-
-npm i
-
+```bash
+yarn install
 ```
 
-## Development | 开发
+## Development
 
-Start the development server on <http://localhost:3000>  
-在 <http://localhost:3000> 启动开发服务器
+Start the development server on <http://localhost:3000>
 
-### 标准模式（ CSR 客户端渲染 ）
-
-``` shell
+```bash
 yarn dev
-
-# or
-
-npm run dev
-
 ```
 
-### 服务端渲染模式（ SSR 服务端渲染 ）
+## Production
 
-服务端渲染模式尚不健全
+Build the application for production:
 
-``` shell
-yarn dev:ssr
-
-# or
-
-npm run dev:ssr
-
+```bash
+yarn build
 ```
 
-## Production | 生产
-
-Build the application for production:  
-构建应用
-
-### 标准单页面模式（ CSR 客户端渲染 ）
-
-``` shell
-yarn build:client
-
-# or
-
-npm run build:client
-
-```
-
-### 服务端渲染单页面模式（ SSR 服务端渲染 ）
-
-服务端渲染模式尚不健全
-
-``` shell
-yarn build:ssr
-
-# or
-
-npm run build:ssr
-
-```
-
-### 静态生成模式（ SSG 服务端生成 ）
-
-服务端渲染模式尚不健全
-
-``` shell
-yarn build:ssg
-
-# or
-
-npm run build:ssg
-
-```
+Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).
 
 ## License | 协议
 

@@ -3,13 +3,11 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
-    "strict": true,
+    "strict": false,
     "allowJs": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
     "types": [
-      "node","vite/client"
-    ],
-  },
-  "exclude": ["**/*.js", "dist/*"]
+      "node"
+    ]
+  }
 }

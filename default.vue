@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type { Store } from "../../../interface"
+import type { Store } from "../interface"
 import { NLayoutContent, NLayout, NLayoutHeader } from "naive-ui"
 import { NButton, NPageHeader } from "naive-ui"
-import { inject } from "vue"
-import { useRoute, useRouter } from "vue-router"
 
 const store = inject("custoStore") as Store
 const route= useRoute()
@@ -13,11 +11,11 @@ const handleBack = ()=>router.back()
 
 const toHome = ()=>router.push('/')
 
-// const themeType = useState<string>("theme")
+const themeType = useState<string>("theme")
 
-const setTheme = (v:string) =>{
+const setTheme = (v)=>{
   store.theme=v
-  // themeType.value = v  
+  themeType.value = v  
 }
 
 </script>

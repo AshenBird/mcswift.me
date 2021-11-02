@@ -1,0 +1,15 @@
+name = "playground"
+type = "javascript"
+account_id = ""
+
+workers_dev = true
+zone_id = ""
+
+[site]
+bucket = ".output/public"
+entry-point = ".output"
+
+
+[build]
+command = "NITRO_PRESET=cloudflare"
+upload.format = "service-worker"
