@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import "normalize.css"
 import "@/assets/index.css"
-// import "normalize.css"
 import { NConfigProvider,NGlobalStyle } from 'naive-ui'
 // theme
 import { useOsTheme, darkTheme } from 'naive-ui'
@@ -9,15 +9,16 @@ import { zhCN, dateZhCN } from 'naive-ui'
 import { computed, onMounted, provide, reactive, ref, watch } from 'vue'
 // import { BuiltInGlobalTheme } from 'naive-ui/lib/themes/interface'
 import DefaultLayout from "@/layouts/default.vue"
+// import { useHead } from '@vueuse/head'
 const store = reactive({
   theme:"dark",
   title:"",
 })
 
 watch(()=>store.title,(n)=>{
-  if(document){
+  // if(document){
     document.title = `McSwift - ${n}`
-  }
+  // }
 })
 
 // const themeType = useState<string>("theme",()=>"")
