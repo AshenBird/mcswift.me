@@ -1,24 +1,17 @@
 export default ()=>[
-  // {
-  //   path:"technology",
-  //   meta:{
-  //     title:"技术类",
-  //   },
-  //   children:[
-  //     {
-  //       path:"p1",
-  //       meta:{
-  //         title:"技术文章1",
-  //       },
-  //       component:()=>import("./test3.md")
-  //     }
-  //   ],
-  // },
-  // {
-  //   path:"p1",
-  //   meta:{
-  //     title:"其他文章之类的",
-  //   },
-  //   component:()=>import("./test2.md")
-  // }
+  {
+    path:"other",
+    meta:{
+      title:"其他",
+    },
+    children:[
+      {
+        path:"shopping",
+        meta:{
+          title:"消费主义时代谁没点恋物癖——好物推荐",
+        },
+        component:()=>import("./shopping.md")
+      }
+    ],
+  },
 ]
