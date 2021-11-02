@@ -33,9 +33,6 @@ export async function createServer(
   let devServer:ViteDevServer
   if (!isProd) {
     const vite = await import ('vite');
-    const VuePlugin = await import ('@vitejs/plugin-vue');
-    const VueJsx = await import('@vitejs/plugin-vue-jsx');
-    const Markdown = await import ('vite-plugin-md');
     devServer = await vite.createServer({
       root,
       logLevel: isTest ? 'error' : 'info',
@@ -47,24 +44,6 @@ export async function createServer(
           usePolling: true,
           interval: 100
         }
-      },
-      configFile: false,
-      plugins: [
-        // 讲 markdown 文件用 vue 插件进行构建
-        VuePlugin.default({
-          include: [/\.vue$/, /\.md$/],
-        }),
-        VueJsx.default(),
-        Markdown.default(),
-      ],
-      build: {
-        minify: false,
-      },
-      resolve: {
-        // 别名
-        alias: {
-          "@": resolve("../"),
-        },
       },
     })
     // use vite's connect instance as middleware
@@ -87,7 +66,7 @@ export async function createServer(
       let template, render
       if (!isProd) {
         // always read fresh template in dev
-        template = fs.readFileSync(resolve('public/index.html'), 'utf-8')
+        template = fs.readFileSync(resolve('../../ssr-template.html'), 'utf-8')
         template = await devServer.transformIndexHtml(url, template)
         render = (await devServer.ssrLoadModule('/src/client/entry-server.ts')).render
       } else {

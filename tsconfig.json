@@ -11,5 +11,5 @@
       "node","vite/client"
     ],
   },
-  "exclude": ["./server.js", "dist"]
+  "exclude": ["**/*.js", "dist/*"]
 }
