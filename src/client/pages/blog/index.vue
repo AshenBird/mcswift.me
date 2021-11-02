@@ -116,9 +116,19 @@ watch(
   display: flex;
 }
 .blog-side-nav {
-  width: 200px;
+  width: 200px ;
 }
 .article-container{
   padding: 0 50px;
+  width: calc( 100% - 200px);
+  box-sizing: border-box;
+}
+.article-container .markdown-body a{
+  --text-color: #63e2b7;
+  --bezier: cubic-bezier(.4, 0, .2, 1);
+  cursor: pointer;
+  transition: color .3s var(--bezier), text-decoration-color .3s var(--bezier);
+  color: var(--text-color);
+  text-decoration: none;
 }
 </style>

@@ -14,3 +14,4 @@ export interface BlogDirectoryConfig {
   component?: () => Promise<typeof import("*.md")>;
   children?: BlogDirectoryConfig[];
 }
+

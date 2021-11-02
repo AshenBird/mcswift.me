@@ -3,14 +3,21 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite';
 import Markdown from 'vite-plugin-md'
 import { resolve } from "path";
+import { linkPlugin } from './markdown-it-plugins/link'
 export default defineConfig({
   plugins: [
-    // 讲 markdown 文件用 vue 插件进行构建
     VuePlugin({
       include: [/\.vue$/, /\.md$/],
     }),
     VueJsx(),
-    Markdown(),
+    Markdown({
+      markdownItSetup(md) {
+        md.use(linkPlugin, {
+          target: '_blank',
+          rel: 'noopener noreferrer'
+        })
+      },
+    }),
   ],
   build: {
     outDir:process.env.MODE==="SSG"?"dist/static":"dist"

@@ -61,6 +61,7 @@ const setTheme = (v:string) =>{
 }
 .default-container{
   max-width: 1200px;
+  box-sizing: border-box;
   margin: auto;
   padding: 15px 53px;
   display: flex;
