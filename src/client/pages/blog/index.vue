@@ -1,7 +1,7 @@
 <script lang="tsx" setup>
 import type { Store } from "../../../../interface";
 import { inject, watch, ref, VNodeChild } from "vue";
-import { NUl, NLi, NA, NH2, NH3, NIcon, NMenu, MenuOption, NText } from "naive-ui";
+import { NUl, NLi, NA, NH2, NIcon, NMenu, MenuOption, NText } from "naive-ui";
 import { useRoute, RouterLink } from "vue-router";
 import { BookOutline as BookIcon } from "@vicons/ionicons5";
 import blogConfigs from "../../../../drafts/config";
@@ -89,25 +89,25 @@ watch(
       :value="current"
     />
     <div class="article-container">
-      <router-view v-slot="{ Component, route }">
-        <component v-if="Component" :is="Component" />
-        <div v-else>
-          <n-h2>目录</n-h2>
-          <n-ul>
-            <n-li v-for="(item, i) of flatBlogs" :key="i">
-              <router-link
-                :to="item.path || '/blog'"
-                #="{ navigate, href }"
-                custom
-              >
-                <NA class="mcswift-link" :href="href" @click="navigate">{{
-                  item.meta?.title
-                }}</NA>
-              </router-link>
-            </n-li>
-          </n-ul>
-        </div>
-      </router-view>
+        <router-view v-slot="{ Component, route }">
+          <component v-if="Component" :is="Component" />
+          <div v-else>
+            <n-h2>目录</n-h2>
+            <n-ul>
+              <n-li v-for="(item, i) of flatBlogs" :key="i">
+                <router-link
+                  :to="item.path || '/blog'"
+                  #="{ navigate, href }"
+                  custom
+                >
+                  <NA class="mcswift-link" :href="href" @click="navigate">{{
+                    item.meta?.title
+                  }}</NA>
+                </router-link>
+              </n-li>
+            </n-ul>
+          </div>
+        </router-view>
     </div>
   </div>
 </template>
@@ -123,6 +123,9 @@ watch(
   width: calc( 100% - 200px);
   box-sizing: border-box;
 }
+.article-container .markdown-body{
+  line-height: 2em;
+}
 .article-container .markdown-body a{
   --text-color: #63e2b7;
   --bezier: cubic-bezier(.4, 0, .2, 1);
@@ -130,5 +133,10 @@ watch(
   transition: color .3s var(--bezier), text-decoration-color .3s var(--bezier);
   color: var(--text-color);
   text-decoration: none;
+}
+
+.article-container .markdown-body p{
+  font-size: 16px;
+  /* color: rgba(255, 255, 255, 0.78); */
 }
 </style>
