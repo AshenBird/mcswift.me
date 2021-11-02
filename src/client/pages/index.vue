@@ -2,8 +2,6 @@
 import type {Store} from "../../../interface"
 
 import { NSpace, NA, NIcon } from "naive-ui"
-// import { NLayoutContent, NLayout, NLayoutHeader } from "naive-ui"
-// import { NMenu } from "naive-ui"
 import { NTooltip } from "naive-ui"
 
 import { ZhihuCircleFilled as ZhihuIcon, GithubFilled as GithubIcon } from "@vicons/antd"
@@ -29,12 +27,15 @@ store.title = "首页"
           <span>施工中...</span>
         </NTooltip>
         <div class="home-nav-divider"></div>
-        <NTooltip trigger="click">
-          <template #trigger>
-            <NA class="home-nav-item" href="javascript:void(0);" >联系我</NA>
-          </template>
-          <span>施工中...</span>
-        </NTooltip>
+          <router-link
+            to="/connect"
+            #="{ navigate, href }"
+            custom
+          >
+            <NA class="mcswift-link" :href="href" @click="navigate">
+              联系我
+            </NA>
+          </router-link>
         <div class="home-nav-divider"></div>
         <router-link class="home-nav-item"  to="/about">
           <NA class="home-nav-item" href="javascript:void(0);" >关于本站</NA>

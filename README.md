@@ -78,7 +78,7 @@ npm run build:ssr
 
 ### 静态生成模式（ SSG 服务端生成 ）
 
-服务端渲染模式尚不健全
+现在主要采用本模式
 
 ``` shell
 yarn build:ssg
