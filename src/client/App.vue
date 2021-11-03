@@ -15,10 +15,16 @@ const store = reactive({
   title: "",
 });
 
-const title = ref("McSwift");
+const metaSource = reactive({
+  title:"McSwift",
+  image:"/logo.png",
+  description:"",
+})
+
+// const title = ref("McSwift");
 
 const head: Ref<HeadObject> = ref({
-  title,
+  title:metaSource.title,
   meta: [
     {
       name: `description`,
@@ -27,16 +33,21 @@ const head: Ref<HeadObject> = ref({
     },
     {
       name: `title`,
-      content: title,
+      content: metaSource.title,
       property: "og:title",
+    },
+    {
+      content: metaSource.image,
+      property: "og:image",
     },
   ],
 });
 
 useHead(head);
 
-const updateMeta = (meta: { title: string; description: string }) => {
-  if (meta.title) title.value = `McSwift - ${meta.title}`;
+const updateMeta = (meta: { title: string; description: string, image:string }) => {
+  if (meta.title) metaSource.title = `McSwift - ${meta.title}`;
+  metaSource.image = meta.image||"/logo.png";
 };
 
 provide("updateMeta", updateMeta);
