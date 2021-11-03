@@ -12,7 +12,7 @@ import {
   NText,
   NDrawer,
   NButton,
-  NAnchor
+  NAnchor,
 } from "naive-ui";
 import { useRoute, RouterLink } from "vue-router";
 import { BookOutline as BookIcon, Menu as MenuIcon } from "@vicons/ionicons5";
@@ -65,7 +65,7 @@ const rootLink = () => (
         type="info"
         strong
       >
-        目录
+        全部文章
       </NText>
     </RouterLink>
   </div>
@@ -85,7 +85,7 @@ const flatBlogs = ref(children);
 const drawerActive = ref(false);
 const current = ref("/blog/");
 watch(
-  () => route.fullPath,
+  () => route.path,
   (n) => {
     current.value = n;
   },
@@ -100,6 +100,7 @@ const sideBar = () =>
   viewWidth.value > 800 ? (
     <NMenu
       class="blog-side-nav content-menu"
+      indent={16}
       collapsed-width={64}
       collapsed-icon-size={22}
       options={menuOptions.value}
@@ -145,9 +146,10 @@ const updateMeta = inject("updateMeta") as UpdateMeta;
 updateMeta({ title: `BLOG` });
 
 watch(
-  () => route?.meta?.title,
+  () => route,
   (n) => {
-    updateMeta({ title: `BLOG | ${n || "目录"}` });
+    console.log(n?.meta?.title)
+    updateMeta({ title: `BLOG | ${n?.meta?.title || "全部文章"}` });
   },
   {
     immediate: true,
@@ -175,7 +177,7 @@ const getTitles = () => {
   });
   flatNodes.forEach((node, index) => {
     const level = node.nodeName[1];
-    const id = `ArticleTiltle${index}`;
+    const id = `AT${index+1}`;
     node.id = id;
     currentGroup[level] = id;
     const group = currentGroup[(Number(level) - 1).toString()];
@@ -228,21 +230,35 @@ onUpdated(() => {
         </div>
       </router-view>
     </div>
-    <div>
-    <n-anchor v-if="viewWidth> 1000" style="min-width: var(--anchor-width);" show-rail show-background>
+    <n-anchor v-if="viewWidth> 1000" class="article-anchor" show-rail show-background>
+      <n-text 
+        :style="`font-size: ${viewWidth > 800 ? 20 : 16}px;margin-left: 14px`"
+        type="success"
+        strong>目录</n-text>
       <AricleAnchors :options="articleNavList"></AricleAnchors>
     </n-anchor>
-    </div>
   </div>
 </template>
 <style lang="css" scope>
 .blog {
   display: flex;
   width: 100%;
-  --nav-width: 300px;
+  --nav-width: 250px;
   --anchor-width: 200px;
+  padding-left: 12vw;
+  box-sizing: border-box;
 }
 
+@media (max-width: 1600px) {
+  .blog{
+    padding-left: 8vw;
+  }
+}
+@media (max-width: 1200px) {
+  .blog{
+    padding-left: 0;
+  }
+}
 .content-menu.n-menu .n-menu-item {
   height: unset;
 }
@@ -265,7 +281,7 @@ onUpdated(() => {
 }
 .article-container {
   box-sizing: border-box;
-  padding: 0 50px;
+  padding: 0 30px;
   flex: auto;
   width: calc(100% - var(--nav-width) - var(--anchor-width));
   overflow: auto;
@@ -292,6 +308,11 @@ onUpdated(() => {
 .article-container .markdown-body p {
   font-size: 16px;
   /* color: rgba(255, 255, 255, 0.78); */
+}
+.article-anchor{
+  /* width: var(--anchor-width); */
+  /* position: absolute; */
+  right:0
 }
 
 @media (max-width: 800px) {

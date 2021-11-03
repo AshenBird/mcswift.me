@@ -10,10 +10,6 @@ import { computed, onMounted, provide, reactive, ref, watch, Ref } from "vue";
 // import { BuiltInGlobalTheme } from 'naive-ui/lib/themes/interface'
 import DefaultLayout from "@/layouts/default.vue";
 import { useHead, HeadObject } from "@vueuse/head";
-const store = reactive({
-  theme: "dark",
-  title: "",
-});
 
 const metaSource = reactive({
   title:"McSwift",
@@ -21,9 +17,12 @@ const metaSource = reactive({
   description:"McSwift 的个人网站",
 })
 
-// const title = ref("McSwift");
+const store = reactive({
+  theme: "dark",
+  title: "",
+});
 
-const head: Ref<HeadObject> = ref({
+const head = computed(()=>({
   title:metaSource.title,
   meta: [
     {
@@ -41,12 +40,15 @@ const head: Ref<HeadObject> = ref({
       property: "og:image",
     },
   ],
-});
+}));
 
 useHead(head);
 
 const updateMeta = (meta: { title: string; description: string, image:string }) => {
-  if (meta.title) metaSource.title = `McSwift - ${meta.title}`;
+  if (meta.title) {
+    metaSource.title = `McSwift - ${meta.title}`
+    store.title = meta.title
+  };
   metaSource.image = meta.image||"/logo.png";
   metaSource.description = meta.description||"McSwift 的个人网站";
 };

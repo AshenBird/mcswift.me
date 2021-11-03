@@ -14,17 +14,21 @@ const props = defineProps({
     type: Array as PropType<AricleAnchorsOption[]>,
     required: true,
   },
+  prefix:{
+    type: String,
+    default: ""
+  },
 });
 
 </script>
 
 <template>
   <n-anchor-link
-    v-for="item of props.options"
+    v-for="(item, index ) of props.options"
     :key="item.href"
-    :title="item.title"
+    :title="`${props.prefix}${index+1}${props.prefix?'':'.'} ${item.title}`"
     :href="item.href"
   >
-    <AricleAnchors v-if="item.children.length>0" :options="item.children"></AricleAnchors>
+    <AricleAnchors v-if="item.children.length>0" :options="item.children" :prefix="props.prefix +　`${index+1}.`"></AricleAnchors>
   </n-anchor-link>
 </template>
