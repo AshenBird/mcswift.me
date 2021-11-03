@@ -1,6 +1,6 @@
 <script lang="tsx" setup>
-import type { Store, UpdateMeta } from "../../../../interface";
-import { inject, watch, ref, VNodeChild, computed } from "vue";
+import type {  UpdateMeta } from "../../../../interface";
+import { inject, watch, ref, onMounted, onUpdated } from "vue";
 import {
   NUl,
   NLi,
@@ -11,27 +11,19 @@ import {
   MenuOption,
   NText,
   NDrawer,
-  NEllipsis,
   NButton,
+  NAnchor
 } from "naive-ui";
 import { useRoute, RouterLink } from "vue-router";
 import { BookOutline as BookIcon, Menu as MenuIcon } from "@vicons/ionicons5";
 import blogConfigs from "../../../../drafts/config";
 import { BlogDirectoryConfig } from "../../../../interface";
 import { children } from "../../router/blog";
+import AricleAnchors from "@/components/AricleAnchors.vue"
+// const store = inject("custoStore") as Store;
+const route = useRoute();
 
 // 菜单配置
-
-
-// <NEllipsis
-//   v-slots={{
-//     default: () => (
-//       <RouterLink to={fullPath}>{item.meta.title}</RouterLink>
-//     ),
-//     tooltip: () => <span>{item.meta.title}</span>,
-//   }}
-// ></NEllipsis>
-
 const configTransformMenu = (
   configs: BlogDirectoryConfig[],
   prefix: string = "/blog"
@@ -44,11 +36,14 @@ const configTransformMenu = (
         item.children ? (
           <span>{item.meta.title}</span>
         ) : (
-          <div onClick={() => (drawerActive.value = false)} style="white-space: normal">
+          <div
+            onClick={() => (drawerActive.value = false)}
+            style="white-space: normal"
+          >
             <RouterLink to={fullPath}>{item.meta.title}</RouterLink>
           </div>
         ),
-      icon: (): VNodeChild => (
+      icon: () => (
         <NIcon>
           <BookIcon></BookIcon>
         </NIcon>
@@ -83,18 +78,24 @@ const menuOptions = ref([
   ...configTransformMenu(blogConfigs()),
 ]);
 
+// 博客主页目录数据
 const flatBlogs = ref(children);
 
-const store = inject("custoStore") as Store;
-
-const route = useRoute();
-
-const current = ref("/blog/");
-
-const viewWidth = ref(window.innerWidth);
-
+// 目录菜单控制
 const drawerActive = ref(false);
+const current = ref("/blog/");
+watch(
+  () => route.fullPath,
+  (n) => {
+    current.value = n;
+  },
+  {
+    immediate: true,
+  }
+);
 
+// 屏幕适配逻辑
+const viewWidth = ref(window.innerWidth);
 const sideBar = () =>
   viewWidth.value > 800 ? (
     <NMenu
@@ -138,29 +139,70 @@ window.addEventListener("resize", () => {
   viewWidth.value = window.innerWidth;
 });
 
+// meta
 const updateMeta = inject("updateMeta") as UpdateMeta;
 
-updateMeta({ title: `BLOG`});
+updateMeta({ title: `BLOG` });
 
 watch(
   () => route?.meta?.title,
   (n) => {
-    updateMeta({ title:`BLOG | ${n || "目录"}`});
+    updateMeta({ title: `BLOG | ${n || "目录"}` });
   },
   {
     immediate: true,
   }
 );
 
-watch(
-  () => route.fullPath,
-  (n) => {
-    current.value = n;
-  },
-  {
-    immediate: true,
+// 文章导航实现
+const articleNavList = ref([]);
+const getTitles = () => {
+  const flatNodes = [];
+  const groupMap = new Map();
+  const currentGroup: Record<string, string> = {};
+  for (let i = 1; i <= 6; i++) {
+    flatNodes.push(...document.querySelectorAll(`.markdown-body h${i}`));
   }
-);
+  flatNodes.sort((a, b) => {
+    const r = a.compareDocumentPosition(b);
+    switch (r) {
+      case 2:
+        return 1;
+      case 4:
+        return -1;
+    }
+    return 0;
+  });
+  flatNodes.forEach((node, index) => {
+    const level = node.nodeName[1];
+    const id = `ArticleTiltle${index}`;
+    node.id = id;
+    currentGroup[level] = id;
+    const group = currentGroup[(Number(level) - 1).toString()];
+
+    groupMap.set(id, {
+      level,
+      title: node.textContent,
+      href: `#${id}`,
+      children: [],
+    });
+    if (level==="1") return; // 顶级
+
+    groupMap.get(group).children.push(
+      groupMap.get(id)
+    )
+  });
+
+  return [...groupMap.values()].filter(item=>item.level==="1");
+};
+onMounted(() => {
+  //@ts-ignore
+  articleNavList.value = getTitles()
+});
+onUpdated(() => {
+  //@ts-ignore
+  articleNavList.value = getTitles()
+});
 </script>
 <template>
   <div class="blog" id="BlogPage">
@@ -186,6 +228,11 @@ watch(
         </div>
       </router-view>
     </div>
+    <div>
+    <n-anchor v-if="viewWidth> 1000" style="min-width: var(--anchor-width);" show-rail show-background>
+      <AricleAnchors :options="articleNavList"></AricleAnchors>
+    </n-anchor>
+    </div>
   </div>
 </template>
 <style lang="css" scope>
@@ -193,6 +240,7 @@ watch(
   display: flex;
   width: 100%;
   --nav-width: 300px;
+  --anchor-width: 200px;
 }
 
 .content-menu.n-menu .n-menu-item {
@@ -205,7 +253,10 @@ watch(
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.content-menu.n-menu .n-menu-item .n-menu-item-content .n-menu-item-content__icon{
+.content-menu.n-menu
+  .n-menu-item
+  .n-menu-item-content
+  .n-menu-item-content__icon {
   margin-top: 2px;
 }
 
@@ -216,7 +267,7 @@ watch(
   box-sizing: border-box;
   padding: 0 50px;
   flex: auto;
-  width: calc(100% - var(--nav-width));
+  width: calc(100% - var(--nav-width) - var(--anchor-width));
   overflow: auto;
   height: calc(
     100vh - var(--default-haeder-height) - var(--default-container-padding) * 2
@@ -224,9 +275,9 @@ watch(
 }
 .article-container .markdown-body {
   line-height: 2em;
-  width: 100%
+  width: 100%;
 }
-.article-container .markdown-body img{
+.article-container .markdown-body img {
   max-width: 100%;
 }
 .article-container .markdown-body a {
@@ -254,11 +305,11 @@ watch(
     height: 30px;
     margin-right: 10px;
   }
-  .article-container .markdown-body{
+  .article-container .markdown-body {
     font-size: 12px;
   }
-  
-  .article-container .markdown-body h1{
+
+  .article-container .markdown-body h1 {
     font-size: 20px;
     line-height: 1.5;
     margin-top: 0;
