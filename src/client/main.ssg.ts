@@ -17,13 +17,13 @@ export const createApp = ViteSSG(
     // install plugins etc.
     if( !isClient && head){
       const { collect }=setup(app);
-      // head.addHeadObjs(ref({
-      //   style:[
-      //     {
-      //       children: collect()
-      //     }
-      //   ]
-      // }))
+      head.addHeadObjs(ref({
+        style:[
+          {
+            children: collect()
+          }
+        ]
+      }))
     }
   }
 )

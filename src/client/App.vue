@@ -18,7 +18,7 @@ const store = reactive({
 const metaSource = reactive({
   title:"McSwift",
   image:"/logo.png",
-  description:"",
+  description:"McSwift 的个人网站",
 })
 
 // const title = ref("McSwift");
@@ -48,6 +48,7 @@ useHead(head);
 const updateMeta = (meta: { title: string; description: string, image:string }) => {
   if (meta.title) metaSource.title = `McSwift - ${meta.title}`;
   metaSource.image = meta.image||"/logo.png";
+  metaSource.description = meta.description||"McSwift 的个人网站";
 };
 
 provide("updateMeta", updateMeta);
