@@ -1,5 +1,5 @@
 <script lang="tsx" setup>
-import type {  UpdateMeta } from "../../../../interface";
+import type { UpdateMeta } from "../../../../interface";
 import { inject, watch, ref, onMounted, onUpdated } from "vue";
 import {
   NUl,
@@ -19,7 +19,7 @@ import { BookOutline as BookIcon, Menu as MenuIcon } from "@vicons/ionicons5";
 import blogConfigs from "../../../../drafts/config";
 import { BlogDirectoryConfig } from "../../../../interface";
 import { children } from "../../router/blog";
-import AricleAnchors from "@/components/AricleAnchors.vue"
+import AricleAnchors from "@/components/AricleAnchors.vue";
 // const store = inject("custoStore") as Store;
 const route = useRoute();
 
@@ -148,7 +148,7 @@ updateMeta({ title: `BLOG` });
 watch(
   () => route,
   (n) => {
-    console.log(n?.meta?.title)
+    console.log(n?.meta?.title);
     updateMeta({ title: `BLOG | ${n?.meta?.title || "全部文章"}` });
   },
   {
@@ -177,7 +177,7 @@ const getTitles = () => {
   });
   flatNodes.forEach((node, index) => {
     const level = node.nodeName[1];
-    const id = `AT${index+1}`;
+    const id = `AT${index + 1}`;
     node.id = id;
     currentGroup[level] = id;
     const group = currentGroup[(Number(level) - 1).toString()];
@@ -188,22 +188,20 @@ const getTitles = () => {
       href: `#${id}`,
       children: [],
     });
-    if (level==="1") return; // 顶级
+    if (level === "1") return; // 顶级
 
-    groupMap.get(group).children.push(
-      groupMap.get(id)
-    )
+    groupMap.get(group).children.push(groupMap.get(id));
   });
 
-  return [...groupMap.values()].filter(item=>item.level==="1");
+  return [...groupMap.values()].filter((item) => item.level === "1");
 };
 onMounted(() => {
   //@ts-ignore
-  articleNavList.value = getTitles()
+  articleNavList.value = getTitles();
 });
 onUpdated(() => {
   //@ts-ignore
-  articleNavList.value = getTitles()
+  articleNavList.value = getTitles();
 });
 </script>
 <template>
@@ -230,11 +228,18 @@ onUpdated(() => {
         </div>
       </router-view>
     </div>
-    <n-anchor v-if="viewWidth> 1000" class="article-anchor" show-rail show-background>
-      <n-text 
+    <n-anchor
+      v-if="articleNavList.length > 0 && viewWidth > 1000"
+      class="article-anchor"
+      show-rail
+      show-background
+    >
+      <n-text
         :style="`font-size: ${viewWidth > 800 ? 20 : 16}px;margin-left: 14px`"
         type="success"
-        strong>目录</n-text>
+        strong
+        >目录</n-text
+      >
       <AricleAnchors :options="articleNavList"></AricleAnchors>
     </n-anchor>
   </div>
@@ -250,12 +255,12 @@ onUpdated(() => {
 }
 
 @media (max-width: 1600px) {
-  .blog{
+  .blog {
     padding-left: 8vw;
   }
 }
 @media (max-width: 1200px) {
-  .blog{
+  .blog {
     padding-left: 0;
   }
 }
@@ -309,10 +314,10 @@ onUpdated(() => {
   font-size: 16px;
   /* color: rgba(255, 255, 255, 0.78); */
 }
-.article-anchor{
+.article-anchor {
   /* width: var(--anchor-width); */
   /* position: absolute; */
-  right:0
+  right: 0;
 }
 
 @media (max-width: 800px) {
