@@ -6,10 +6,12 @@ import { NConfigProvider, NGlobalStyle } from "naive-ui";
 import { useOsTheme, darkTheme } from "naive-ui";
 // locale & dateLocale
 import { zhCN, dateZhCN } from "naive-ui";
-import { computed, onMounted, provide, reactive, ref, watch, Ref } from "vue";
-// import { BuiltInGlobalTheme } from 'naive-ui/lib/themes/interface'
+import { computed, onMounted, provide, reactive, ref, watch } from "vue";
 import DefaultLayout from "@/layouts/default.vue";
-import { useHead, HeadObject } from "@vueuse/head";
+import { useHead } from "@vueuse/head";
+
+
+
 
 const metaSource = reactive({
   title:"McSwift",
@@ -21,7 +23,6 @@ const store = reactive({
   theme: "dark",
   title: "",
 });
-
 const head = computed(()=>({
   title:metaSource.title,
   meta: [
@@ -43,6 +44,9 @@ const head = computed(()=>({
 }));
 
 useHead(head);
+
+
+
 
 const updateMeta = (meta: { title: string; description: string, image:string }) => {
   if (meta.title) {
@@ -84,7 +88,7 @@ provide("custoStore", store);
       :date-locale="dateZhCN"
       :class="{ '__dark-theme': isDark }"
     >
-      <NGlobalStyle v-if="isMounted" />
+      <NGlobalStyle/>
       <DefaultLayout>
         <RouterView></RouterView>
       </DefaultLayout>
