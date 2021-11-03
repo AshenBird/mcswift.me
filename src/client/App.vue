@@ -78,10 +78,11 @@ watch(
   }
 );
 provide("custoStore", store);
+// style="visibility:hidden;" :style="isMounted?'visibility:visible':''"
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" >
     <NConfigProvider
       :theme="theme"
       :locale="zhCN"
@@ -101,6 +102,5 @@ provide("custoStore", store);
   --default-container-padding: 15px;
 }
 #app {
-  transition: all 0.5s;
 }
 </style>
