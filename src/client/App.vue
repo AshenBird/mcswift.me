@@ -6,21 +6,27 @@ import { NConfigProvider,NGlobalStyle } from 'naive-ui'
 import { useOsTheme, darkTheme } from 'naive-ui'
 // locale & dateLocale
 import { zhCN, dateZhCN } from 'naive-ui'
-import { computed, onMounted, provide, reactive, ref, watch } from 'vue'
+import { computed, onMounted, provide, reactive, ref, watch,Ref } from 'vue'
 // import { BuiltInGlobalTheme } from 'naive-ui/lib/themes/interface'
 import DefaultLayout from "@/layouts/default.vue"
-import { useHead } from '@vueuse/head'
+import { useHead,HeadObject } from '@vueuse/head'
 const store = reactive({
   theme:"dark",
   title:"",
 })
 
-const head = ref({
+const head:Ref<HeadObject> = ref({
   title:"McSwift",
   meta: [
     {
       name: `description`,
       content: "McSwift 的个人网站",
+      property:"og:description"
+    },
+    {
+      name: `title`,
+      content: "McSwift",
+      property:"og:title"
     },
   ],
 })
@@ -29,6 +35,8 @@ useHead(head)
 
 watch(()=>store.title,(n)=>{
   head.value.title = `McSwift - ${n}`
+  // @ts-ignore
+  head.value.meta[1].content = `McSwift - ${n}`
 })
 
 // const themeType = useState<string>("theme",()=>"")
