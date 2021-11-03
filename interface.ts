@@ -15,3 +15,9 @@ export interface BlogDirectoryConfig {
   children?: BlogDirectoryConfig[];
 }
 
+type _UpdateMeta =  (meta: {
+  title?: string;
+  description?: string;
+}) => void
+
+export interface UpdateMeta extends _UpdateMeta {};

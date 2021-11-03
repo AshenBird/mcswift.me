@@ -14,11 +14,8 @@ const handleBack = () => router.back();
 
 const toHome = () => router.push("/");
 
-// const themeType = useState<string>("theme")
-
 const setTheme = (v: string) => {
   store.theme = v;
-  // themeType.value = v
 };
 </script>
 

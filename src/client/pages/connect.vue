@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import {NText, NUl, NLi, NP, NH4} from "naive-ui"
-import type {Store} from "../../../interface"
+import type {Store, UpdateMeta} from "../../../interface"
 import { inject } from "vue"
 const store = inject("custoStore") as Store
-store.title = "联系我"
+const updateMeta = inject("updateMeta") as UpdateMeta;
+updateMeta({ title: "联系我" });
 </script>
 <template>
 <div style="padding: 30px 15px; font-size: 16px; max-width: 800px;">

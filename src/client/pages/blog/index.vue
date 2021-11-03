@@ -1,5 +1,5 @@
 <script lang="tsx" setup>
-import type { Store } from "../../../../interface";
+import type { Store, UpdateMeta } from "../../../../interface";
 import { inject, watch, ref, VNodeChild, computed } from "vue";
 import {
   NUl,
@@ -138,10 +138,14 @@ window.addEventListener("resize", () => {
   viewWidth.value = window.innerWidth;
 });
 
+const updateMeta = inject("updateMeta") as UpdateMeta;
+
+updateMeta({ title: `BLOG`});
+
 watch(
   () => route?.meta?.title,
   (n) => {
-    store.title = `BLOG | ${n || "目录"}`;
+    updateMeta({ title:`BLOG | ${n || "目录"}`});
   },
   {
     immediate: true,
