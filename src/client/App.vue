@@ -9,16 +9,26 @@ import { zhCN, dateZhCN } from 'naive-ui'
 import { computed, onMounted, provide, reactive, ref, watch } from 'vue'
 // import { BuiltInGlobalTheme } from 'naive-ui/lib/themes/interface'
 import DefaultLayout from "@/layouts/default.vue"
-// import { useHead } from '@vueuse/head'
+import { useHead } from '@vueuse/head'
 const store = reactive({
   theme:"dark",
   title:"",
 })
 
+const head = ref({
+  title:"McSwift",
+  meta: [
+    {
+      name: `description`,
+      content: "McSwift 的个人网站",
+    },
+  ],
+})
+
+useHead(head.value)
+
 watch(()=>store.title,(n)=>{
-  // if(document){
-    document.title = `McSwift - ${n}`
-  // }
+  head.value.title = `McSwift - ${n}`
 })
 
 // const themeType = useState<string>("theme",()=>"")
@@ -29,16 +39,13 @@ const theme = computed(()=>store.theme === "dark"?darkTheme:null)
 const isMounted = ref(false)
 onMounted(async ()=>{
   isMounted.value=true
-  // setTimeout(()=>isMounted.value = true, 500);
-  // theme.value = localStorage.getItem("theme")||useOsTheme().value
-  // store.theme = localStorage.getItem("theme")||useOsTheme().value
+  store.theme = localStorage.getItem("theme")||useOsTheme().value||"light"
 })
 
 // 监听主题变化并记录
 watch(()=>store.theme, (n,o)=>{
   if(n===o)return;
   if(!localStorage)return;
-  // console.log( "theme change:",n)
   localStorage.setItem('theme', n);
 })
 provide("custoStore",store)
@@ -52,9 +59,7 @@ provide("custoStore",store)
       :locale="zhCN"
       :date-locale="dateZhCN"
       :class="{'__dark-theme':isDark}">
-      <!-- <client-only> -->
-        <NGlobalStyle v-if="isMounted" />
-      <!-- </client-only> -->
+      <NGlobalStyle v-if="isMounted" />
       <DefaultLayout>
         <RouterView></RouterView>
       </DefaultLayout>
@@ -62,6 +67,10 @@ provide("custoStore",store)
   </div>
 </template>
 <style>
+:root{
+  --default-haeder-height: 40px;
+  --default-container-padding: 15px;
+}
 #app {
   transition: all 0.5s;
 }
