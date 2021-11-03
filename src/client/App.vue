@@ -78,11 +78,10 @@ watch(
   }
 );
 provide("custoStore", store);
-// style="visibility:hidden;" :style="isMounted?'visibility:visible':''"
 </script>
 
 <template>
-  <div id="app" >
+  <div id="app"  style="visibility:hidden;" :style="isMounted?'visibility:visible':''">
     <NConfigProvider
       :theme="theme"
       :locale="zhCN"
