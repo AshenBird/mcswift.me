@@ -78,6 +78,7 @@ const setTheme = (v: string) => {
 .default-container {
   max-width: 1200px;
   box-sizing: border-box;
+  max-height: calc(100vh - var(--default-haeder-height));
   margin: auto;
   padding: var(--default-container-padding);
   display: flex;
