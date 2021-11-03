@@ -25,7 +25,7 @@ const head = ref({
   ],
 })
 
-useHead(head.value)
+useHead(head)
 
 watch(()=>store.title,(n)=>{
   head.value.title = `McSwift - ${n}`
