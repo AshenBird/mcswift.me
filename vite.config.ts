@@ -37,15 +37,20 @@ export default defineConfig({
             ["</h6>", "</n-h6>"],
             ["<blockquote>", "<n-blockquote>"],
             ["</blockquote>", "</n-blockquote>"],
+            ["<img", "<n-image"],
             ["<a", "<n-a"],
             ["</a>", "</n-a>"],
           ]
           for (const [s, t] of keywordPool) {
             result = result.replace(new RegExp(s, "g"), t)
           }
+          console.log(result)
           result += markdownScripts;
           return result
         }
+      },
+      markdownItOptions:{
+        xhtmlOut: true,
       },
       markdownItSetup(md) {
         md.use(linkPlugin, {

@@ -1,6 +1,6 @@
 <script lang="tsx" setup>
 import type { UpdateMeta } from "../../../../interface";
-import { inject, watch, ref, onMounted, onUpdated } from "vue";
+import { inject, watch, ref, onMounted, onUpdated, computed } from "vue";
 import {
   NUl,
   NLi,
@@ -13,6 +13,8 @@ import {
   NDrawer,
   NButton,
   NAnchor,
+  GlobalThemeOverrides,
+  NConfigProvider
 } from "naive-ui";
 import { useRoute, RouterLink } from "vue-router";
 import { BookOutline as BookIcon, Menu as MenuIcon } from "@vicons/ionicons5";
@@ -140,6 +142,17 @@ window.addEventListener("resize", () => {
   viewWidth.value = window.innerWidth;
 });
 
+
+
+const mobileOverrides = computed<GlobalThemeOverrides>(()=>{
+  return viewWidth.value > 800?{}:{
+    Typography:{
+      headerFontSize1:"24px",
+      headerFontSize2:"20px",
+    }
+  }
+})
+
 // meta
 const updateMeta = inject("updateMeta") as UpdateMeta;
 
@@ -148,7 +161,6 @@ updateMeta({ title: `BLOG` });
 watch(
   () => route,
   (n) => {
-    console.log(n?.meta?.title);
     updateMeta({ title: `BLOG | ${n?.meta?.title || "全部文章"}` });
   },
   {
@@ -203,13 +215,18 @@ onUpdated(() => {
   //@ts-ignore
   articleNavList.value = getTitles();
 });
+
 </script>
 <template>
   <div class="blog" id="BlogPage">
     <component :is="sideBar" />
     <div class="article-container">
       <router-view v-slot="{ Component }">
-        <component v-if="Component" :is="Component" />
+        <template v-if="Component">
+          <n-config-provider :theme-overrides="mobileOverrides">
+            <component :is="Component" />
+          </n-config-provider>
+        </template>
         <div v-else>
           <n-h2>目录</n-h2>
           <n-ul>
@@ -295,28 +312,17 @@ onUpdated(() => {
   );
 }
 .article-container .markdown-body {
-  line-height: 2em;
   width: 100%;
 }
 .article-container .markdown-body img {
   max-width: 100%;
 }
-/* .article-container .markdown-body a {
-  --text-color: #63e2b7;
-  --bezier: cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  transition: color 0.3s var(--bezier), text-decoration-color 0.3s var(--bezier);
-  color: var(--text-color);
-  text-decoration: none;
-} */
-
-/* .article-container .markdown-body p {
-  font-size: 16px;
-} */
 .article-anchor {
-  /* width: var(--anchor-width); */
-  /* position: absolute; */
   right: 0;
+}
+
+.n-image-preview-overlay{
+   background: rgba(0, 0, 0, .8);
 }
 
 @media (max-width: 800px) {
@@ -330,17 +336,5 @@ onUpdated(() => {
     height: 30px;
     margin-right: 10px;
   }
-  .article-container .markdown-body {
-    font-size: 12px;
-  }
-
-  /* .article-container .markdown-body h1 {
-    font-size: 20px;
-    line-height: 1.5;
-    margin-top: 0;
-  }
-  .article-container .markdown-body p {
-    font-size: 14px;
-  } */
 }
 </style>
