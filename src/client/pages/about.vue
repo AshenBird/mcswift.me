@@ -86,5 +86,10 @@ updateMeta({ title: "关于本站" });
     </div>
   </div>
 </template>
-<style lang="css">
+<style lang="css" scoped>
+@media (min-width: 1200px) {
+  .about{
+    margin-left: calc( 50vw - 600px - 15px); 
+  }
+}
 </style>

@@ -53,11 +53,7 @@ updateMeta({ title: "联系我" });
 <style>
 .connect{
   padding: 30px 0;
-  /* padding-left: calc( 20vw - 500px ); */
   font-size: 16px;
-  max-width: 800px;
-  /* padding-left: 37px; */
-  /* margin-right: auto; */
   margin: 0 auto;
   max-width: 800px;
 }
