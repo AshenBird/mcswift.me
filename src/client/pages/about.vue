@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import type { Store, UpdateMeta } from "../../../interface";
-import { NA, NH2, NH3, NUl, NLi, NIcon } from "naive-ui";
+import { NA, NH2, NH3, NUl, NLi,NIcon, NP } from "naive-ui";
 import RemoteLogo from "@/components/RemoteLogo.vue";
 import { inject } from "vue";
+import { GithubFilled as GithubIcon } from "@vicons/antd"
 const store = inject("custoStore") as Store;
 const updateMeta = inject("updateMeta") as UpdateMeta;
 updateMeta({ title: "关于本站" });
@@ -11,6 +12,14 @@ updateMeta({ title: "关于本站" });
   <div class="about">
     <n-h2>关于本站</n-h2>
     <div>
+      <n-h3>源码地址</n-h3>
+      <n-p style="display: flex; align-items: center;">
+        <NIcon size="16" :color="store.theme==='dark'?'#ffffff':'#000000'">
+          <GithubIcon/>
+        </NIcon>
+        &nbsp;
+        <n-a href="https://github.com/AshenBird/mcswift.me" target="_blank">https://github.com/AshenBird/mcswift.me</n-a>  
+      </n-p>
       <n-h3>技术栈</n-h3>
       <n-ul>
         <n-li>
@@ -24,6 +33,9 @@ updateMeta({ title: "关于本站" });
           <n-a href="https://www.naiveui.com/" target="_blank"> Naive UI </n-a>
         </n-li>
         <n-li>
+          <remote-logo
+            src="/xicons.svg"
+          />&nbsp;
           <n-a href="https://www.xicons.org/" target="_blank"> xicons </n-a>
         </n-li>
         <n-li>
@@ -47,11 +59,6 @@ updateMeta({ title: "关于本站" });
     <div style="margin-top: 40px">
       <n-h3>部署方案</n-h3>
       <n-ul>
-        <n-li>
-          <n-a href="https://workers.cloudflare.com/" target="_blank">
-            Cloudflare Workers
-          </n-a>
-        </n-li>
         <n-li>
           <n-a href="https://www.cloudflare.com/zh-cn/cdn/" target="_blank">
             Cloudflare CDN
@@ -80,9 +87,4 @@ updateMeta({ title: "关于本站" });
   </div>
 </template>
 <style lang="css">
-/* @media (max-width:1200px) {
-  .about{
-    padding: 0 38px;
-  }
-} */
 </style>

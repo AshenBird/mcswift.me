@@ -22,6 +22,10 @@ import blogConfigs from "../../../../drafts/config";
 import { BlogDirectoryConfig } from "../../../../interface";
 import { children } from "../../router/blog";
 import AricleAnchors from "@/components/AricleAnchors.vue";
+// import 'highlight.js/styles/github.css';
+import "vitepress/dist/client/theme-default/styles/vars.css";
+import "vitepress/dist/client/theme-default/styles/code.css"
+
 // const store = inject("custoStore") as Store;
 const route = useRoute();
 
@@ -317,6 +321,7 @@ onUpdated(() => {
 .article-container .markdown-body img {
   max-width: 100%;
 }
+
 .article-anchor {
   right: 0;
 }

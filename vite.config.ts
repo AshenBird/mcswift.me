@@ -4,8 +4,13 @@ import { defineConfig } from 'vite';
 import Markdown from 'vite-plugin-md'
 import { resolve } from "path";
 import { linkPlugin } from './markdown-it-plugins/link';
+import { highlight } from "./markdown-it-plugins/highlight"
+import { highlightLinePlugin } from "./markdown-it-plugins/highlightLines"
+import { preWrapperPlugin } from "./markdown-it-plugins/preWrapper"
+import { lineNumberPlugin } from "./markdown-it-plugins/lineNumbers"
 import * as fs from "fs";
 import * as path from "path";
+
 
 const markdownScripts = fs.readFileSync(path.resolve(__dirname, "./templates/markdown.html"));
 
@@ -44,19 +49,22 @@ export default defineConfig({
           for (const [s, t] of keywordPool) {
             result = result.replace(new RegExp(s, "g"), t)
           }
-          console.log(result)
           result += markdownScripts;
           return result
         }
       },
-      markdownItOptions:{
+      markdownItOptions: {
         xhtmlOut: true,
+        highlight
       },
       markdownItSetup(md) {
-        md.use(linkPlugin, {
-          target: '_blank',
-          rel: 'noopener noreferrer'
-        })
+        md.use(preWrapperPlugin)
+          .use(linkPlugin, {
+            target: '_blank',
+            rel: 'noopener noreferrer'
+          })
+          .use(highlightLinePlugin)
+          .use(lineNumberPlugin)
       },
     }),
   ],

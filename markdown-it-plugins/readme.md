@@ -1,3 +1,3 @@
 # markdown-it 插件
 
-## link 插件来自 vitepress
+本目录的插件均来自 vitepress 项目
