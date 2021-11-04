@@ -7,7 +7,7 @@ const updateMeta = inject("updateMeta") as UpdateMeta;
 updateMeta({ title: "联系我" });
 </script>
 <template>
-<div style="padding: 30px 15px; font-size: 16px; max-width: 800px;">
+<div class="connect" >
   <n-text :depth="1">
     如果你希望联系到我，目前可以发邮件到以下邮箱:
     <div style="margin:10px 0;">
@@ -50,3 +50,15 @@ updateMeta({ title: "联系我" });
 </div>
 
 </template>
+<style>
+.connect{
+  padding: 30px 0;
+  /* padding-left: calc( 20vw - 500px ); */
+  font-size: 16px;
+  max-width: 800px;
+  /* padding-left: 37px; */
+  /* margin-right: auto; */
+  margin: 0 auto;
+  max-width: 800px;
+}
+</style>
