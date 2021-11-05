@@ -19,7 +19,7 @@ const setTheme = (v: string) => {
 };
 const historyPosi = ref(1);
 watch(()=>route,()=>{
-  if(!history)return;
+  if(import.meta.env.SSR)return;
   const { state:{back, position}, length} = history
   historyPosi.value = position;
 },{immediate:true, deep:true})
