@@ -2,7 +2,7 @@
 import type { Store } from "../../../interface";
 import { NLayoutContent, NLayout, NLayoutHeader } from "naive-ui";
 import { NButton, NPageHeader, NIcon, NEllipsis } from "naive-ui";
-import { inject } from "vue";
+import { inject, watch, ref } from "vue";
 import { Moon as DarkIcon, Sunny as LightIcon } from "@vicons/ionicons5";
 import { useRoute, useRouter } from "vue-router";
 
@@ -17,18 +17,27 @@ const toHome = () => router.push("/");
 const setTheme = (v: string) => {
   store.theme = v;
 };
+const historyPosi = ref(1);
+watch(()=>route,()=>{
+  if(!history)return;
+  const { state:{back, position}, length} = history
+  historyPosi.value = position;
+},{immediate:true, deep:true})
 </script>
 
 <template>
   <NLayout
-    :class="{ 'at-home': route.fullPath === '/' }"
+    :class="{ 'at-home': historyPosi === 0 }"
     class="default-layout"
+    content-style="position:absolute; top:0; bottom:0; left:0; right:0;"
   >
     <NLayoutHeader>
       <div class="default-header-container">
         <n-page-header @back="handleBack" class="default-page-header">
           <template #title>
-            <span class="page-title" style="cursor: pointer" @click="toHome"> McSwift </span>
+            <span class="page-title" style="cursor: pointer" @click="toHome">
+              McSwift
+            </span>
           </template>
           <template #subtitle>
             <NEllipsis class="page-subtitle">
@@ -52,7 +61,7 @@ const setTheme = (v: string) => {
         </NButton>
       </div>
     </NLayoutHeader>
-    <NLayoutContent>
+    <NLayoutContent style="height: calc(100% - var(--default-haeder-height))">
       <div class="default-container">
         <slot />
       </div>
@@ -61,7 +70,9 @@ const setTheme = (v: string) => {
 </template>
 <style>
 .default-layout {
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  min-height: 100%;
+  position: relative;
 }
 .default-header-container {
   box-sizing: border-box;
@@ -73,9 +84,9 @@ const setTheme = (v: string) => {
   padding: 0 15px;
 }
 .default-container {
-  /* max-width: 1400px; */
   box-sizing: border-box;
-  max-height: calc(100vh - var(--default-haeder-height));
+  /* max-height: calc(100% - var(--default-haeder-height)); */
+  height: 100%;
   margin: auto;
   padding: var(--default-container-padding);
   display: flex;
@@ -84,11 +95,11 @@ const setTheme = (v: string) => {
   align-items: flex-start;
 }
 .at-home .n-page-header__back {
-  visibility: collapse;
+  visibility: hidden;
 }
 
-.default-page-header .n-page-header__subtitle{
-  width: calc( 100vw - 190px );
+.default-page-header .n-page-header__subtitle {
+  width: calc(100vw - 190px);
 }
 @media (max-width: 800px) {
   .page-title {

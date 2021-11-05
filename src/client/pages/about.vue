@@ -13,8 +13,8 @@ updateMeta({ title: "关于本站" });
     <n-h2>关于本站</n-h2>
     <div>
       <n-h3>源码地址</n-h3>
-      <n-p style="display: flex; align-items: center;">
-        <NIcon size="16" :color="store.theme==='dark'?'#ffffff':'#000000'">
+      <n-p style="display: flex; align-items: flex-start;">
+        <NIcon size="16" :color="store.theme==='dark'?'#ffffff':'#000000'" style="margin-top:3px" >
           <GithubIcon/>
         </NIcon>
         &nbsp;

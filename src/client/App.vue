@@ -83,6 +83,7 @@ provide("custoStore", store);
 <template>
   <div id="app"  style="visibility:hidden;" :style="isMounted?'visibility:visible':''">
     <NConfigProvider
+      style="height:100%"
       :theme="theme"
       :locale="zhCN"
       :date-locale="dateZhCN"
@@ -100,6 +101,7 @@ provide("custoStore", store);
   --default-haeder-height: 40px;
   --default-container-padding: 15px;
 }
-#app {
+html, body, #app {
+  height: 100%;
 }
 </style>

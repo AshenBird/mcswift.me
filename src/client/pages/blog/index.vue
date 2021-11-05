@@ -269,8 +269,9 @@ onUpdated(() => {
 .blog {
   display: flex;
   width: 100%;
-  --nav-width: 250px;
-  --anchor-width: 200px;
+  height:100%;
+  --nav-width: 240px;
+  --anchor-width: 290px;
   padding-left: 12vw;
   box-sizing: border-box;
 }
@@ -311,9 +312,10 @@ onUpdated(() => {
   flex: auto;
   width: calc(100% - var(--nav-width) - var(--anchor-width));
   overflow: auto;
-  height: calc(
+  height: 100%;
+  /* calc(
     100vh - var(--default-haeder-height) - var(--default-container-padding) * 2
-  );
+  ); */
 }
 .article-container .markdown-body {
   width: 100%;
@@ -323,6 +325,7 @@ onUpdated(() => {
 }
 
 .article-anchor {
+  width:var(--anchor-width);
   right: 0;
 }
 

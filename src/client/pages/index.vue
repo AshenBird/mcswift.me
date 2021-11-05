@@ -82,7 +82,7 @@ store.title = "首页"
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: calc(100vh - 80px);
+  height: 100%;
 }
 .social-media-nav-item, .home-nav-item{
   text-decoration: none;
