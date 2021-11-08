@@ -2089,6 +2089,26 @@ magic-string@^0.25.7:
   dependencies:
     sourcemap-codec "^1.4.4"
 
+markdown-it-attrs@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npmmirror.com/markdown-it-attrs/download/markdown-it-attrs-4.1.0.tgz#e27f023cd8731b15b4a5e971d51e6f45b3b947bc"
+  integrity sha1-4n8CPNhzGxW0pelx1R5vRbO5R7w=
+
+markdown-it-deflist@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmmirror.com/markdown-it-deflist/download/markdown-it-deflist-2.1.0.tgz#50d7a56b9544cd81252f7623bd785e28a8dcef5c"
+  integrity sha1-UNela5VEzYElL3YjvXheKKjc71w=
+
+markdown-it-mark@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmmirror.com/markdown-it-mark/download/markdown-it-mark-3.0.1.tgz#51257db58787d78aaf46dc13418d99a9f3f0ebd3"
+  integrity sha1-USV9tYeH14qvRtwTQY2ZqfPw69M=
+
+markdown-it-task-lists@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmmirror.com/markdown-it-task-lists/download/markdown-it-task-lists-2.1.1.tgz#f68f4d2ac2bad5a2c373ba93081a1a6848417088"
+  integrity sha1-9o9NKsK61aLDc7qTCBoaaEhBcIg=
+
 markdown-it@^12.2.0:
   version "12.2.0"
   resolved "https://registry.npmmirror.com/markdown-it/download/markdown-it-12.2.0.tgz#091f720fd5db206f80de7a8d1f1a7035fd0d38db"

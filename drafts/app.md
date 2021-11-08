@@ -4,7 +4,7 @@
 
 ## VLC media player
 
-- 是否开源: 是  
+- 是否开源: 是
 - 协议: GPLv2  
 - 源码地址: <https://code.videolan.org/explore/projects/starred>  
 - 下载页: <https://www.videolan.org/vlc/>  

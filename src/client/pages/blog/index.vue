@@ -14,7 +14,7 @@ import {
   NButton,
   NAnchor,
   GlobalThemeOverrides,
-  NConfigProvider
+  NConfigProvider,
 } from "naive-ui";
 import { useRoute, RouterLink } from "vue-router";
 import { BookOutline as BookIcon, Menu as MenuIcon } from "@vicons/ionicons5";
@@ -322,6 +322,21 @@ onUpdated(() => {
 }
 .article-container .markdown-body img {
   max-width: 100%;
+}
+
+.article-container .markdown-body mark {
+  background: unset;
+  background-color: unset;
+}
+
+.article-container .markdown-body .contains-task-list{
+  padding-left: 0;
+  padding-inline-start: 0;
+  padding-block-start: 0;
+}
+
+.article-container .markdown-body .task-list-item::marker{
+  content:""
 }
 
 .article-anchor {

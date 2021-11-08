@@ -8,6 +8,14 @@ import { highlight } from "./markdown-it-plugins/highlight"
 import { highlightLinePlugin } from "./markdown-it-plugins/highlightLines"
 import { preWrapperPlugin } from "./markdown-it-plugins/preWrapper"
 import { lineNumberPlugin } from "./markdown-it-plugins/lineNumbers"
+// @ts-ignore
+import taskListPlugin from "markdown-it-task-lists"
+// @ts-ignore
+import attrsPlugin from "markdown-it-attrs"
+// @ts-ignore
+import deflistPlugin from "markdown-it-deflist"
+// @ts-ignore
+import markPlugin from "markdown-it-mark"
 import * as fs from "fs";
 import * as path from "path";
 
@@ -26,12 +34,12 @@ export default defineConfig({
           // 使用 naive-ui 组件替代原生标签
           let result = code
           const keywordPool: [string, string][] = [
-            ["<p>", "<n-p>"],
+            ["<p>", `<n-p>`],
             ["</p>", "</n-p>"],
-            ["<h1>", "<n-h1>"],
+            [`<h1>`, `<n-h1>`],
             ["</h1>", "</n-h1>"],
-            ["<h2>", "<n-h2>"],
-            ["</h2>", "</n-h2>"],
+            [`<h2>`, `<n-h2 type="info" prefix="bar"><n-text>`],
+            ["</h2>", "</n-text></n-h2>"],
             ["<h3>", "<n-h3>"],
             ["</h3>", "</n-h3>"],
             ["<h4>", "<n-h4>"],
@@ -45,6 +53,22 @@ export default defineConfig({
             ["<img", "<n-image"],
             ["<a", "<n-a"],
             ["</a>", "</n-a>"],
+            ["<ol>", "<n-ol>"],
+            ["</ol>", "</n-ol>"],
+            ["<ul", "<n-ul "],
+            ["</ul>", "</n-ul>"],
+            ["<li", "<n-li "],
+            ["</li>", "</n-li>"],
+            ["<mark", `<n-text tag="mark" type="warning"`],
+            ["</mark>", "</n-text>"],
+            // [
+            //   `<input class="task-list-item-checkbox" checked="" disabled="" type="checkbox">`,
+            //   `<n-checkbox :checked="true" style="cursor: auto;"></n-checkbox>`
+            // ],
+            // [
+            //   `<input class="task-list-item-checkbox" disabled="" type="checkbox">`,
+            //   `<n-checkbox :checked="false" style="cursor: auto;"></n-checkbox>`
+            // ]
           ]
           for (const [s, t] of keywordPool) {
             result = result.replace(new RegExp(s, "g"), t)
@@ -65,11 +89,15 @@ export default defineConfig({
           })
           .use(highlightLinePlugin)
           .use(lineNumberPlugin)
+          .use(deflistPlugin)
+          .use(attrsPlugin)
+          .use(markPlugin)
+          .use(taskListPlugin)
       },
     }),
   ],
-  server:{
-    host:"0.0.0.0"
+  server: {
+    host: "0.0.0.0"
   },
   build: {
     outDir: process.env.MODE === "SSG" ? "dist/static" : "dist",
