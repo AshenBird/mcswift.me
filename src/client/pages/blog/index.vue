@@ -15,16 +15,19 @@ import {
   NAnchor,
   GlobalThemeOverrides,
   NConfigProvider,
+  NScrollbar,
+  NBackTop,
 } from "naive-ui";
 import { useRoute, RouterLink } from "vue-router";
 import { BookOutline as BookIcon, Menu as MenuIcon } from "@vicons/ionicons5";
+import { ArticleFilled as ArticleIcon } from "@vicons/material";
 import blogConfigs from "../../../../drafts/config";
 import { BlogDirectoryConfig } from "../../../../interface";
 import { children } from "../../router/blog";
 import AricleAnchors from "@/components/AricleAnchors.vue";
 // import 'highlight.js/styles/github.css';
 import "vitepress/dist/client/theme-default/styles/vars.css";
-import "vitepress/dist/client/theme-default/styles/code.css"
+import "vitepress/dist/client/theme-default/styles/code.css";
 
 // const store = inject("custoStore") as Store;
 const route = useRoute();
@@ -49,11 +52,16 @@ const configTransformMenu = (
             <RouterLink to={fullPath}>{item.meta.title}</RouterLink>
           </div>
         ),
-      icon: () => (
-        <NIcon>
-          <BookIcon></BookIcon>
-        </NIcon>
-      ),
+      icon: () =>
+        item.children&&item.children.length>0 ? (
+          <NIcon>
+            <BookIcon />
+          </NIcon>
+        ) : (
+          <NIcon>
+            <ArticleIcon />
+          </NIcon>
+        ),
       key: fullPath,
       children: item.children
         ? configTransformMenu(item.children, fullPath)
@@ -146,16 +154,16 @@ window.addEventListener("resize", () => {
   viewWidth.value = window.innerWidth;
 });
 
-
-
-const mobileOverrides = computed<GlobalThemeOverrides>(()=>{
-  return viewWidth.value > 800?{}:{
-    Typography:{
-      headerFontSize1:"24px",
-      headerFontSize2:"20px",
-    }
-  }
-})
+const mobileOverrides = computed<GlobalThemeOverrides>(() => {
+  return viewWidth.value > 800
+    ? {}
+    : {
+        Typography: {
+          headerFontSize1: "24px",
+          headerFontSize2: "20px",
+        },
+      };
+});
 
 // meta
 const updateMeta = inject("updateMeta") as UpdateMeta;
@@ -178,7 +186,7 @@ const getTitles = () => {
   const flatNodes = [];
   const groupMap = new Map();
   const currentGroup: Record<string, string> = {};
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 2; i <= 6; i++) {
     flatNodes.push(...document.querySelectorAll(`.markdown-body h${i}`));
   }
   flatNodes.sort((a, b) => {
@@ -204,12 +212,12 @@ const getTitles = () => {
       href: `#${id}`,
       children: [],
     });
-    if (level === "1") return; // 顶级
+    if (level === "2") return; // 顶级
 
     groupMap.get(group).children.push(groupMap.get(id));
   });
 
-  return [...groupMap.values()].filter((item) => item.level === "1");
+  return [...groupMap.values()].filter((item) => item.level === "2");
 };
 onMounted(() => {
   //@ts-ignore
@@ -219,48 +227,54 @@ onUpdated(() => {
   //@ts-ignore
   articleNavList.value = getTitles();
 });
-
 </script>
 <template>
   <div class="blog" id="BlogPage">
     <component :is="sideBar" />
     <div class="article-container">
       <router-view v-slot="{ Component }">
-        <template v-if="Component">
-          <n-config-provider :theme-overrides="mobileOverrides">
-            <component :is="Component" />
-          </n-config-provider>
-        </template>
-        <div v-else>
-          <n-h2>目录</n-h2>
-          <n-ul>
-            <n-li v-for="(item, i) of flatBlogs" :key="i">
-              <router-link
-                :to="item.path || '/blog'"
-                #="{ navigate, href }"
-                custom
-              >
-                <NA class="mcswift-link" :href="href" @click="navigate">{{
-                  item.meta?.title
-                }}</NA>
-              </router-link>
-            </n-li>
-          </n-ul>
-        </div>
+        <n-scrollbar>
+          <template v-if="Component">
+            <n-config-provider :theme-overrides="mobileOverrides">
+              <component :is="Component" />
+            </n-config-provider>
+          </template>
+          <div v-else>
+            <n-h2>目录</n-h2>
+            <n-ul>
+              <n-li v-for="(item, i) of flatBlogs" :key="i">
+                <router-link
+                  :to="item.path || '/blog'"
+                  #="{ navigate, href }"
+                  custom
+                >
+                  <NA class="mcswift-link" :href="href" @click="navigate">{{
+                    item.meta?.title
+                  }}</NA>
+                </router-link>
+              </n-li>
+            </n-ul>
+          </div>
+          <n-back-top :right="30" />
+        </n-scrollbar>
       </router-view>
     </div>
     <n-anchor
       v-if="articleNavList.length > 0 && viewWidth > 1000"
       class="article-anchor"
       show-rail
+      ignore-gap
       show-background
+      offset-target=".article-container"
     >
-      <n-text
-        :style="`font-size: ${viewWidth > 800 ? 20 : 16}px;margin-left: 14px`"
-        type="success"
-        strong
-        >目录</n-text
-      >
+      <div style="margin-bottom: 20px">
+        <n-text
+          :style="`font-size: ${viewWidth > 800 ? 20 : 16}px;margin-left: 14px`"
+          type="success"
+          strong
+          >目录</n-text
+        >
+      </div>
       <AricleAnchors :options="articleNavList"></AricleAnchors>
     </n-anchor>
   </div>
@@ -269,7 +283,7 @@ onUpdated(() => {
 .blog {
   display: flex;
   width: 100%;
-  height:100%;
+  height: 100%;
   --nav-width: 240px;
   --anchor-width: 290px;
   padding-left: 12vw;
@@ -309,6 +323,7 @@ onUpdated(() => {
 .article-container {
   box-sizing: border-box;
   padding: 0 30px;
+  padding-right: 0;
   flex: auto;
   width: calc(100% - var(--nav-width) - var(--anchor-width));
   overflow: auto;
@@ -316,6 +331,10 @@ onUpdated(() => {
   /* calc(
     100vh - var(--default-haeder-height) - var(--default-container-padding) * 2
   ); */
+}
+.n-scrollbar-rail__scrollbar {
+  /* background-color: var(--c-brand-light) !important; */
+  background-color: var(--text-color) !important;
 }
 .article-container .markdown-body {
   width: 100%;
@@ -329,23 +348,27 @@ onUpdated(() => {
   background-color: unset;
 }
 
-.article-container .markdown-body .contains-task-list{
+.article-container .markdown-body .contains-task-list {
   padding-left: 0;
   padding-inline-start: 0;
   padding-block-start: 0;
 }
 
-.article-container .markdown-body .task-list-item::marker{
-  content:""
+.article-container .markdown-body .task-list-item::marker {
+  content: "";
 }
 
 .article-anchor {
-  width:var(--anchor-width);
-  right: 0;
+  width: var(--anchor-width);
+}
+.article-anchor .n-anchor-rail {
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
 }
 
-.n-image-preview-overlay{
-   background: rgba(0, 0, 0, .8);
+.n-image-preview-overlay {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 800px) {
