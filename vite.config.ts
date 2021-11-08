@@ -110,7 +110,7 @@ export default defineConfig({
     // 别名
     alias: {
       "@": resolve(__dirname, "./src/client"),
-      "~": resolve(__dirname, "./drafts"),
+      "%": resolve(__dirname, "./drafts"),
     },
   },
 })

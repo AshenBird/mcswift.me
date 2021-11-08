@@ -1,6 +1,6 @@
 <script lang="tsx" setup>
 import type { UpdateMeta } from "../../../../interface";
-import { inject, watch, ref, onMounted, onUpdated, computed } from "vue";
+import { inject, watch, ref, shallowRef, onMounted, onUpdated, computed, nextTick } from "vue";
 import {
   NUl,
   NLi,
@@ -21,10 +21,11 @@ import {
 import { useRoute, RouterLink } from "vue-router";
 import { BookOutline as BookIcon, Menu as MenuIcon } from "@vicons/ionicons5";
 import { ArticleFilled as ArticleIcon } from "@vicons/material";
-import blogConfigs from "../../../../drafts/config";
+import blogConfigs from "%/config";
 import { BlogDirectoryConfig } from "../../../../interface";
 import { children } from "../../router/blog";
 import AricleAnchors from "@/components/AricleAnchors.vue";
+
 // import 'highlight.js/styles/github.css';
 import "vitepress/dist/client/theme-default/styles/vars.css";
 import "vitepress/dist/client/theme-default/styles/code.css";
@@ -85,12 +86,13 @@ const rootLink = () => (
   </div>
 );
 
-const menuOptions = ref([
+const menuOptions = [
   {
     label: rootLink,
+    key: "/blog"
   },
   ...configTransformMenu(blogConfigs()),
-]);
+];
 
 // 博客主页目录数据
 const flatBlogs = ref(children);
@@ -117,7 +119,7 @@ const sideBar = () =>
       indent={16}
       collapsed-width={64}
       collapsed-icon-size={22}
-      options={menuOptions.value}
+      options={menuOptions}
       value={current.value}
     />
   ) : (
@@ -143,7 +145,7 @@ const sideBar = () =>
           indent={16}
           collapsed-width={64}
           collapsed-icon-size={22}
-          options={menuOptions.value}
+          options={menuOptions}
           value={current.value}
         />
       </NDrawer>
@@ -176,12 +178,13 @@ watch(
     updateMeta({ title: `BLOG | ${n?.meta?.title || "全部文章"}` });
   },
   {
+    deep:true,
     immediate: true,
   }
 );
 
 // 文章导航实现
-const articleNavList = ref([]);
+const articleNavList = shallowRef([]);
 const getTitles = () => {
   const flatNodes = [];
   const groupMap = new Map();
@@ -219,14 +222,19 @@ const getTitles = () => {
 
   return [...groupMap.values()].filter((item) => item.level === "2");
 };
-onMounted(() => {
-  //@ts-ignore
-  articleNavList.value = getTitles();
-});
-onUpdated(() => {
-  //@ts-ignore
-  articleNavList.value = getTitles();
-});
+watch(
+  () => route,
+  async (n) => {
+    await nextTick();
+    //@ts-ignore
+    articleNavList.value = getTitles();
+    // updateMeta({ title: `BLOG | ${n?.meta?.title || "全部文章"}` });
+  },
+  {
+    deep:true,
+    immediate: true,
+  }
+);
 </script>
 <template>
   <div class="blog" id="BlogPage">
@@ -362,8 +370,7 @@ onUpdated(() => {
   width: var(--anchor-width);
 }
 .article-anchor .n-anchor-rail {
-  top: 2px;
-  bottom: 2px;
+
   width: 2px;
 }
 

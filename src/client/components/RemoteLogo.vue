@@ -9,6 +9,7 @@ const props = defineProps({
 
 
 </script>
+
 <template>
   <div class="mcswift-icon-container">
     <img class="mcswift-icon" :src="props.src">

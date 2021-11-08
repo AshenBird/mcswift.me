@@ -9,7 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "types": [
       "node","vite/client"
-    ],
+    ]
   },
   "exclude": ["**/*.js", "dist/*"]
 }
