@@ -50,9 +50,9 @@ updateMeta({ title: "联系我" });
 </div>
 
 </template>
-<style>
+<style scoped lang="scss">
 .connect{
-  padding: 30px 0;
+  padding: 30px, 0;
   font-size: 16px;
   margin: 0 auto;
   max-width: 800px;

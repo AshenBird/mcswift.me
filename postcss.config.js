@@ -1,7 +1,8 @@
 module.exports = {
   plugins: [
-    // require('postcss-100vh-fix'),
-    // require('postcss-viewport-height-correction'),
-    require('autoprefixer')
+    require("postcss-import"),
+    require("postcss-nesting"),
+    require("postcss-preset-env"),
+    require('autoprefixer'),
   ]
 }

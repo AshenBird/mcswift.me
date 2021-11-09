@@ -1,6 +1,13 @@
 <script lang="tsx" setup>
 import type { UpdateMeta } from "../../../../interface";
-import { inject, watch, ref, shallowRef, onMounted, onUpdated, computed, nextTick } from "vue";
+import {
+  inject,
+  watch,
+  ref,
+  shallowRef,
+  computed,
+  nextTick,
+} from "vue";
 import {
   NUl,
   NLi,
@@ -17,6 +24,7 @@ import {
   NConfigProvider,
   NScrollbar,
   NBackTop,
+  NDivider,
 } from "naive-ui";
 import { useRoute, RouterLink } from "vue-router";
 import { BookOutline as BookIcon, Menu as MenuIcon } from "@vicons/ionicons5";
@@ -25,12 +33,8 @@ import blogConfigs from "%/config";
 import { BlogDirectoryConfig } from "../../../../interface";
 import { children } from "../../router/blog";
 import AricleAnchors from "@/components/AricleAnchors.vue";
-
-// import 'highlight.js/styles/github.css';
 import "vitepress/dist/client/theme-default/styles/vars.css";
 import "vitepress/dist/client/theme-default/styles/code.css";
-
-// const store = inject("custoStore") as Store;
 const route = useRoute();
 
 // 菜单配置
@@ -54,7 +58,7 @@ const configTransformMenu = (
           </div>
         ),
       icon: () =>
-        item.children&&item.children.length>0 ? (
+        item.children && item.children.length > 0 ? (
           <NIcon>
             <BookIcon />
           </NIcon>
@@ -89,7 +93,7 @@ const rootLink = () => (
 const menuOptions = [
   {
     label: rootLink,
-    key: "/blog"
+    key: "/blog",
   },
   ...configTransformMenu(blogConfigs()),
 ];
@@ -178,7 +182,7 @@ watch(
     updateMeta({ title: `BLOG | ${n?.meta?.title || "全部文章"}` });
   },
   {
-    deep:true,
+    deep: true,
     immediate: true,
   }
 );
@@ -228,10 +232,9 @@ watch(
     await nextTick();
     //@ts-ignore
     articleNavList.value = getTitles();
-    // updateMeta({ title: `BLOG | ${n?.meta?.title || "全部文章"}` });
   },
   {
-    deep:true,
+    deep: true,
     immediate: true,
   }
 );
@@ -242,28 +245,32 @@ watch(
     <div class="article-container">
       <router-view v-slot="{ Component }">
         <n-scrollbar>
-          <template v-if="Component">
-            <n-config-provider :theme-overrides="mobileOverrides">
+          <n-config-provider
+            :theme-overrides="mobileOverrides"
+            class="markdown-style-provider"
+          >
+            <template v-if="Component">
               <component :is="Component" />
-            </n-config-provider>
-          </template>
-          <div v-else>
-            <n-h2>目录</n-h2>
-            <n-ul>
-              <n-li v-for="(item, i) of flatBlogs" :key="i">
-                <router-link
-                  :to="item.path || '/blog'"
-                  #="{ navigate, href }"
-                  custom
-                >
-                  <NA class="mcswift-link" :href="href" @click="navigate">{{
-                    item.meta?.title
-                  }}</NA>
-                </router-link>
-              </n-li>
-            </n-ul>
-          </div>
-          <n-back-top :right="30" />
+              <n-divider title-placement="left">到底了</n-divider>
+            </template>
+            <div v-else>
+              <n-h2>目录</n-h2>
+              <n-ul>
+                <n-li v-for="(item, i) of flatBlogs" :key="i">
+                  <router-link
+                    :to="item.path || '/blog'"
+                    #="{ navigate, href }"
+                    custom
+                  >
+                    <NA class="mcswift-link" :href="href" @click="navigate">
+                      {{ item.meta?.title }}
+                    </NA>
+                  </router-link>
+                </n-li>
+              </n-ul>
+            </div>
+          </n-config-provider>
+          <n-back-top :right="30" :bottom="20" />
         </n-scrollbar>
       </router-view>
     </div>
@@ -287,7 +294,40 @@ watch(
     </n-anchor>
   </div>
 </template>
-<style lang="css" scope>
+<style lang="pcss">
+
+.article-container {
+  box-sizing: border-box;
+  padding: 0 30px;
+  padding-right: 0;
+  flex: auto;
+  width: calc(100% - var(--nav-width) - var(--anchor-width));
+  overflow: auto;
+  height: 100%;
+  & .markdown-body {
+    width: 100%;
+    & img {
+      max-width: 100%;
+    }
+    & mark {
+      background: unset;
+      background-color: unset;
+    }
+    & .contains-task-list {
+      padding-left: 0;
+      padding-inline-start: 0;
+      padding-block-start: 0;
+    }
+    & .task-list-item::marker {
+      content: "";
+    }
+    & li a {
+      word-break: break-all;
+    }
+  }
+}
+</style>
+<style lang="pcss" scoped>
 .blog {
   display: flex;
   width: 100%;
@@ -308,74 +348,33 @@ watch(
     padding-left: 0;
   }
 }
-.content-menu.n-menu .n-menu-item {
+:deep(.content-menu).n-menu .n-menu-item {
   height: unset;
+  & .n-menu-item-content {
+    height: unset;
+    align-items: flex-start;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    & .n-menu-item-content__icon {
+      margin-top: 1px;
+    }
+
+  }
 }
 
-.content-menu.n-menu .n-menu-item .n-menu-item-content {
-  height: unset;
-  align-items: flex-start;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-.content-menu.n-menu
-  .n-menu-item
-  .n-menu-item-content
-  .n-menu-item-content__icon {
-  margin-top: 2px;
-}
-
-.blog-side-nav {
+:deep(.blog-side-nav) {
   width: var(--nav-width);
 }
-.article-container {
-  box-sizing: border-box;
-  padding: 0 30px;
-  padding-right: 0;
-  flex: auto;
-  width: calc(100% - var(--nav-width) - var(--anchor-width));
-  overflow: auto;
-  height: 100%;
-  /* calc(
-    100vh - var(--default-haeder-height) - var(--default-container-padding) * 2
-  ); */
-}
 .n-scrollbar-rail__scrollbar {
-  /* background-color: var(--c-brand-light) !important; */
   background-color: var(--text-color) !important;
-}
-.article-container .markdown-body {
-  width: 100%;
-}
-.article-container .markdown-body img {
-  max-width: 100%;
-}
-
-.article-container .markdown-body mark {
-  background: unset;
-  background-color: unset;
-}
-
-.article-container .markdown-body .contains-task-list {
-  padding-left: 0;
-  padding-inline-start: 0;
-  padding-block-start: 0;
-}
-
-.article-container .markdown-body .task-list-item::marker {
-  content: "";
-}
-
-.article-container .markdown-body li a {
-  word-break: break-all;
 }
 
 .article-anchor {
   width: var(--anchor-width);
-}
-.article-anchor .n-anchor-rail {
-
-  width: 2px;
+  & .n-anchor-rail {
+    width: 2px;
+  }
 }
 
 .n-image-preview-overlay {
@@ -388,8 +387,18 @@ watch(
   }
   .article-container {
     padding: 0;
+    height: unset;
+    margin-right: -15px;
+    margin-top: -15px;
+    margin-bottom: -15px;
   }
-  .blog-side-nav {
+  .markdown-style-provider {
+    box-sizing: border-box;
+    padding-right: 15px;
+    padding-bottom: 50px;
+    padding-top: 15px;
+  }
+  :deep(.blog-side-nav) {
     height: 30px;
     margin-right: 10px;
   }
