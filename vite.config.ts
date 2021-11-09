@@ -73,6 +73,7 @@ export default defineConfig({
           for (const [s, t] of keywordPool) {
             result = result.replace(new RegExp(s, "g"), t)
           }
+          result = result.slice(0, -6) + `<n-divider title-placement="left">到底了</n-divider></div>`
           result += markdownScripts;
           return result
         }

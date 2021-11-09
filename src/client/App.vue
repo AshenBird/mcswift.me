@@ -9,7 +9,7 @@ import { zhCN, dateZhCN } from "naive-ui";
 import { computed, onMounted, provide, reactive, ref, watch } from "vue";
 import DefaultLayout from "@/layouts/default.vue";
 import { useHead } from "@vueuse/head";
-
+import "animate.css"
 
 
 
@@ -91,7 +91,13 @@ provide("custoStore", store);
     >
       <NGlobalStyle/>
       <DefaultLayout>
-        <RouterView></RouterView>
+        <router-view v-slot="{ Component,route }">
+          <transition  mode="out-in"
+            enter-active-class="animate__animated animate__fadeIn fast-then-faster--animate-duration"
+            leave-active-class="animate__animated animate__fadeOut fast-then-faster--animate-duration">
+            <component :is="Component"/>
+          </transition>
+        </router-view>
       </DefaultLayout>
     </NConfigProvider>
   </div>
@@ -100,6 +106,9 @@ provide("custoStore", store);
 :root {
   --default-haeder-height: 40px;
   --default-container-padding: 15px;
+}
+.fast-then-faster--animate-duration{
+  --animate-duration: 0.3s;
 }
 html, body, #app {
   height: 100%;

@@ -1,13 +1,6 @@
 <script lang="tsx" setup>
 import type { UpdateMeta } from "../../../../interface";
-import {
-  inject,
-  watch,
-  ref,
-  shallowRef,
-  computed,
-  nextTick,
-} from "vue";
+import { inject, watch, ref, shallowRef, computed, nextTick } from "vue";
 import {
   NUl,
   NLi,
@@ -249,26 +242,31 @@ watch(
             :theme-overrides="mobileOverrides"
             class="markdown-style-provider"
           >
-            <template v-if="Component">
-              <component :is="Component" />
-              <n-divider title-placement="left">到底了</n-divider>
-            </template>
-            <div v-else>
-              <n-h2>目录</n-h2>
-              <n-ul>
-                <n-li v-for="(item, i) of flatBlogs" :key="i">
-                  <router-link
-                    :to="item.path || '/blog'"
-                    #="{ navigate, href }"
-                    custom
-                  >
-                    <NA class="mcswift-link" :href="href" @click="navigate">
-                      {{ item.meta?.title }}
-                    </NA>
-                  </router-link>
-                </n-li>
-              </n-ul>
-            </div>
+            <transition
+              mode="out-in"
+              enter-active-class="animate__animated animate__fadeIn animate__faster"
+              leave-active-class="animate__animated animate__fadeOut animate__faster"
+            >
+              <template v-if="Component">
+                <component :is="Component" />
+              </template>
+              <div v-else>
+                <n-h2>目录</n-h2>
+                <n-ul>
+                  <n-li v-for="(item, i) of flatBlogs" :key="i">
+                    <router-link
+                      :to="item.path || '/blog'"
+                      #="{ navigate, href }"
+                      custom
+                    >
+                      <NA class="mcswift-link" :href="href" @click="navigate">
+                        {{ item.meta?.title }}
+                      </NA>
+                    </router-link>
+                  </n-li>
+                </n-ul>
+              </div>
+            </transition>
           </n-config-provider>
           <n-back-top :right="30" :bottom="20" />
         </n-scrollbar>
