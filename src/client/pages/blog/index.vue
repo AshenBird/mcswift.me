@@ -366,6 +366,10 @@ watch(
   content: "";
 }
 
+.article-container .markdown-body li a {
+  word-break: break-all;
+}
+
 .article-anchor {
   width: var(--anchor-width);
 }
