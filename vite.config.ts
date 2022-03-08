@@ -106,7 +106,8 @@ export default defineConfig({
     // minify: false,
   },
   ssgOptions: {
-    mock: true
+    mock: true,
+    // format: 'cjs'
   },
   resolve: {
     // 别名

@@ -1,7 +1,7 @@
 {
   "author": {
     "name": "mcswift",
-    "email": "develop@mcswift.pro"
+    "email": "develop@mcswift.me"
   },
   "private": true,
   "scripts": {
@@ -44,7 +44,7 @@
     "serve-static": "^1.14.2",
     "vite": "^2.8.6",
     "vite-plugin-md": "^0.11.8",
-    "vite-ssg": "0.17.11",
+    "vite-ssg": "0.15.4",
     "vitepress": "^0.20.10"
   },
   "dependencies": {

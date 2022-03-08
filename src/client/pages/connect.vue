@@ -12,7 +12,7 @@ updateMeta({ title: "联系我" });
     如果你希望联系到我，目前可以发邮件到以下邮箱:
     <div style="margin:10px 0;">
       <n-text :depth="3" type="info">
-        <address>work@mcswift.pro</address>
+        <address>work@mcswift.me</address>
       </n-text>
     </div>
   </n-text>
