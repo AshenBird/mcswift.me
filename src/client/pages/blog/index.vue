@@ -1,33 +1,18 @@
 <script lang="tsx" setup>
 import type { UpdateMeta } from "../../../../interface";
-import { inject, watch, ref, shallowRef, computed, nextTick } from "vue";
-import {
-  NUl,
-  NLi,
-  NA,
-  NH2,
-  NIcon,
-  NMenu,
-  MenuOption,
-  NText,
-  NDrawer,
-  NButton,
-  NAnchor,
-  GlobalThemeOverrides,
-  NConfigProvider,
-  NScrollbar,
-  NBackTop,
-  NDivider,
-} from "naive-ui";
+import { inject, watch, ref, shallowRef, onMounted } from "vue";
+import { NIcon, NMenu, MenuOption, NText, NDrawer, NButton } from "naive-ui";
 import { useRoute, RouterLink } from "vue-router";
-import { BookOutline as BookIcon, Menu as MenuIcon } from "@vicons/ionicons5";
+import {
+  BookOutline as BookOutlineIcon,
+  Book as BookIcon,
+  Menu as MenuIcon,
+} from "@vicons/ionicons5";
 import { ArticleFilled as ArticleIcon } from "@vicons/material";
 import blogConfigs from "%/config";
 import { BlogDirectoryConfig } from "../../../../interface";
-import { children } from "../../router/blog";
-import AricleAnchors from "@/components/AricleAnchors.vue";
-import "vitepress/dist/client/theme-default/styles/vars.css";
-import "vitepress/dist/client/theme-default/styles/code.css";
+
+import MArticle from "@/components/Article.vue";
 const route = useRoute();
 
 // 菜单配置
@@ -50,16 +35,28 @@ const configTransformMenu = (
             <RouterLink to={fullPath}>{item.meta.title}</RouterLink>
           </div>
         ),
-      icon: () =>
-        item.children && item.children.length > 0 ? (
+      icon: () => {
+        if (!item.children) {
+          return (
+            <NIcon>
+              <ArticleIcon />
+            </NIcon>
+          );
+        }
+        if (item.children.length > 0) {
+          return (
+            <NIcon>
+              <BookIcon />
+            </NIcon>
+          );
+        }
+
+        return (
           <NIcon>
-            <BookIcon />
+            <BookOutlineIcon />
           </NIcon>
-        ) : (
-          <NIcon>
-            <ArticleIcon />
-          </NIcon>
-        ),
+        );
+      },
       key: fullPath,
       children: item.children
         ? configTransformMenu(item.children, fullPath)
@@ -91,9 +88,6 @@ const menuOptions = [
   ...configTransformMenu(blogConfigs()),
 ];
 
-// 博客主页目录数据
-const flatBlogs = ref(children);
-
 // 目录菜单控制
 const drawerActive = ref(false);
 const current = ref("/blog/");
@@ -109,6 +103,9 @@ watch(
 
 // 屏幕适配逻辑
 const viewWidth = ref(window.innerWidth);
+window.addEventListener("resize", () => {
+  viewWidth.value = window.innerWidth;
+});
 const sideBar = () =>
   viewWidth.value > 800 ? (
     <NMenu
@@ -148,21 +145,6 @@ const sideBar = () =>
       </NDrawer>
     </>
   );
-
-window.addEventListener("resize", () => {
-  viewWidth.value = window.innerWidth;
-});
-
-const mobileOverrides = computed<GlobalThemeOverrides>(() => {
-  return viewWidth.value > 800
-    ? {}
-    : {
-        Typography: {
-          headerFontSize1: "24px",
-          headerFontSize2: "20px",
-        },
-      };
-});
 
 // meta
 const updateMeta = inject("updateMeta") as UpdateMeta;
@@ -219,115 +201,44 @@ const getTitles = () => {
 
   return [...groupMap.values()].filter((item) => item.level === "2");
 };
-watch(
-  () => route,
-  async (n) => {
-    await nextTick();
-    //@ts-ignore
-    articleNavList.value = getTitles();
-  },
-  {
-    deep: true,
-    immediate: true,
-  }
-);
+onMounted(() => {
+  //@ts-ignore
+  articleNavList.value = getTitles();
+});
 </script>
 <template>
   <div class="blog" id="BlogPage">
     <component :is="sideBar" />
-    <div class="article-container">
-      <router-view v-slot="{ Component }">
-        <n-scrollbar>
-          <n-config-provider
-            :theme-overrides="mobileOverrides"
-            class="markdown-style-provider"
-          >
-            <transition
-              mode="out-in"
-              enter-active-class="animate__animated animate__fadeIn animate__faster"
-              leave-active-class="animate__animated animate__fadeOut animate__faster"
-            >
-              <template v-if="Component">
-                <component :is="Component" />
-              </template>
-              <div v-else>
-                <n-h2>目录</n-h2>
-                <n-ul>
-                  <n-li v-for="(item, i) of flatBlogs" :key="i">
-                    <router-link
-                      :to="item.path || '/blog'"
-                      #="{ navigate, href }"
-                      custom
-                    >
-                      <NA class="mcswift-link" :href="href" @click="navigate">
-                        {{ item.meta?.title }}
-                      </NA>
-                    </router-link>
-                  </n-li>
-                </n-ul>
-              </div>
-            </transition>
-          </n-config-provider>
-          <n-back-top :right="30" :bottom="20" />
-        </n-scrollbar>
-      </router-view>
-    </div>
-    <n-anchor
-      v-if="articleNavList.length > 0 && viewWidth > 1000"
-      class="article-anchor"
-      show-rail
-      ignore-gap
-      show-background
-      offset-target=".article-container"
-    >
-      <div style="margin-bottom: 20px">
-        <n-text
-          :style="`font-size: ${viewWidth > 800 ? 20 : 16}px;margin-left: 14px`"
-          type="success"
-          strong
-          >目录</n-text
-        >
-      </div>
-      <AricleAnchors :options="articleNavList"></AricleAnchors>
-    </n-anchor>
+    <router-view v-slot="{ Component }">
+      <transition
+        mode="out-in"
+        enter-active-class="animate__animated animate__fadeIn animate__faster"
+        leave-active-class="animate__animated animate__fadeOut animate__faster"
+      >
+        <m-article
+          v-if="Component"
+          :component="Component"
+          :key="route.path"
+        ></m-article>
+      </transition>
+    </router-view>
   </div>
 </template>
 <style lang="pcss">
-
-.article-container {
-  box-sizing: border-box;
-  padding: 0 30px;
-  padding-right: 0;
-  flex: auto;
-  width: calc(100% - var(--nav-width) - var(--anchor-width));
-  overflow: auto;
-  height: 100%;
-  & .markdown-body {
-    width: 100%;
-    & img {
-      max-width: 100%;
-    }
-    & mark {
-      background: unset;
-      background-color: unset;
-    }
-    & .contains-task-list {
-      padding-left: 0;
-      padding-inline-start: 0;
-      padding-block-start: 0;
-    }
-    & .task-list-item::marker {
-      content: "";
-    }
-    & li a {
-      word-break: break-all;
-    }
+#BlogPage{
+  --nav-width: 240px;
+  --anchor-width: 290px;
+}
+@media (max-width: 800px) {
+  #BlogPage {
+    --nav-width: 30px;
   }
 }
 </style>
 <style lang="pcss" scoped>
 .blog {
   display: flex;
+  align-items: flex-start;
   width: 100%;
   height: 100%;
   --nav-width: 240px;
@@ -363,42 +274,5 @@ watch(
 
 :deep(.blog-side-nav) {
   width: var(--nav-width);
-}
-.n-scrollbar-rail__scrollbar {
-  background-color: var(--text-color) !important;
-}
-
-.article-anchor {
-  width: var(--anchor-width);
-  & .n-anchor-rail {
-    width: 2px;
-  }
-}
-
-.n-image-preview-overlay {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-@media (max-width: 800px) {
-  .blog {
-    --nav-width: 30px;
-  }
-  .article-container {
-    padding: 0;
-    height: unset;
-    margin-right: -15px;
-    margin-top: -15px;
-    margin-bottom: -15px;
-  }
-  .markdown-style-provider {
-    box-sizing: border-box;
-    padding-right: 15px;
-    padding-bottom: 50px;
-    padding-top: 15px;
-  }
-  :deep(.blog-side-nav) {
-    height: 30px;
-    margin-right: 10px;
-  }
 }
 </style>

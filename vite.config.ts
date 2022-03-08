@@ -98,7 +98,8 @@ export default defineConfig({
     }),
   ],
   server: {
-    host: "0.0.0.0"
+    host: "0.0.0.0",
+    port: 9000
   },
   build: {
     outDir: process.env.MODE === "SSG" ? "dist/static" : "dist",

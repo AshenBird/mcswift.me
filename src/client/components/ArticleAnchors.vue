@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { PropType } from "vue";
 import { NAnchorLink } from "naive-ui";
-// import AricleAnchors from "./AricleAnchors.vue";
-interface AricleAnchorsOption {
+// import ArticleAnchors from "./ArticleAnchors.vue";
+interface ArticleAnchorsOption {
   level: string;
   title: string;
   href: string;
-  children: AricleAnchorsOption[];
+  children: ArticleAnchorsOption[];
 }
 
 const props = defineProps({
   options: {
-    type: Array as PropType<AricleAnchorsOption[]>,
+    type: Array as PropType<ArticleAnchorsOption[]>,
     required: true,
   },
   prefix: {
@@ -30,10 +30,10 @@ const props = defineProps({
     }`"
     :href="item.href"
   >
-    <aricle-anchors
+    <article-anchors
       v-if="item.children.length > 0"
       :options="item.children"
       :prefix="props.prefix + `${index + 1}.`"
-    ></aricle-anchors>
+    ></article-anchors>
   </n-anchor-link>
 </template>
