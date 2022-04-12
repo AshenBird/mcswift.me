@@ -29,7 +29,7 @@ export default ()=>[
         meta:{
           title:"工具推荐",
         },
-        component:()=>import("./app.md")
+        component:()=>import("./tools/app.md")
       },
     ]
   },
@@ -61,6 +61,22 @@ export default ()=>[
     },
     children:[
 
+    ]
+  },
+  {
+    path:"note",
+    meta:{
+      title:"笔记",
+      description:"记录点东西，方便自己就是"
+    },
+    children:[
+      {
+        path:"linux-env",
+        meta:{
+          title:"初始化一个 linux 开发环境的记录",
+        },
+        component:()=>import("./note/linux-env.md")
+      },
     ]
   },
   {
