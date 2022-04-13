@@ -160,7 +160,7 @@ onMounted(() => {
 <style lang="pcss" scoped>
 .article-wrap{
   display: flex;
-  width: 100%;
+  width: calc(100% - var(--nav-width));
   height: 100%;
   box-sizing: border-box;
   position: relative;
@@ -181,6 +181,17 @@ onMounted(() => {
     margin-right: -15px;
     margin-top: -15px;
     margin-bottom: -15px;
+    & :deep(div[class*='language-']) {
+      margin-right: 8px !important;
+      padding-left: 1.1rem;
+      & .line-numbers-wrapper {
+        width: 1.1rem;
+      }
+    }
+    
+    & :deep([class*='language-'] pre){
+      padding: 1.25rem 0.75rem;
+    }
   }
   .markdown-style-provider {
     box-sizing: border-box;
@@ -188,7 +199,7 @@ onMounted(() => {
     padding-bottom: 50px;
     padding-top: 15px;
   }
-  :deep(.blog-side-nav) {
+  & :deep(.blog-side-nav) {
     height: 30px;
     margin-right: 10px;
   }
@@ -200,12 +211,18 @@ onMounted(() => {
 
 .article-container {
   box-sizing: border-box;
-  padding: 0 30px;
+  padding: 0 8px;
   padding-right: 0;
   flex: auto;
   width: calc(100% - var(--nav-width) - var(--anchor-width));
   overflow: auto;
   height: 100%;
+  & :deep(div[class*='language-']) {
+    margin: 1rem 0;
+  }
+  & :deep([class*='language-'] code){
+    line-height: calc( 0.9135 * var(--code-line-height)) !important;
+  }
   & :deep(.markdown-body) {
     /* width: calc(100% - 16px;); */
     padding-right: 16px;
@@ -229,4 +246,5 @@ onMounted(() => {
     }
   }
 }
+
 </style>

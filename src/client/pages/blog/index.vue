@@ -243,13 +243,15 @@ onMounted(() => {
   height: 100%;
   --nav-width: 240px;
   --anchor-width: 290px;
-  padding-left: 12vw;
+  /* padding-left: 12vw; */
+  padding-left: 108px;
   box-sizing: border-box;
 }
 
 @media (max-width: 1600px) {
   .blog {
-    padding-left: 8vw;
+    /* padding-left: 8vw; */
+    padding-left: 108px;
   }
 }
 @media (max-width: 1200px) {

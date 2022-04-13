@@ -62,7 +62,7 @@
     "eslint": "^8.10.0",
     "express": "^4.17.3",
     "highlight.js": "^11.4.0",
-    "naive-ui": "^2.26.1",
+    "naive-ui": "^2.28.0",
     "normalize.css": "^8.0.1",
     "vfonts": "^0.1.0",
     "vue": "^3.2.31",

@@ -88,7 +88,7 @@ updateMeta({ title: "关于本站" });
 </template>
 <style lang="css" scoped>
 .about{
-  padding-bottom: 30px;
+  padding-bottom: 100px;
 }
 @media (min-width: 1200px) {
   .about{

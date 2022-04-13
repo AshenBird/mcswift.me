@@ -12,7 +12,7 @@ updateMeta({ title: "联系我" });
     如果你希望联系到我，目前可以发邮件到以下邮箱:
     <div style="margin:10px 0;">
       <n-text :depth="3" type="info">
-        <address>work@mcswift.me</address>
+        <address>hi@mcswift.me</address>
       </n-text>
     </div>
   </n-text>
@@ -31,7 +31,7 @@ updateMeta({ title: "联系我" });
     </n-p>
     <n-h4>设计资源</n-h4>
     <n-p :depth="3" class="mcswift-paragraph">
-      作为一个工程师，设计属于我比较薄弱的点。如果你是一名设计师，你愿以通过设计帮助我完善我的网站，除了作品署名之外，作为回报我也可以按照对等原则帮助你完成一些开发工作，比如你的人网站、小程序之类的。
+      作为一个工程师，设计属于我比较薄弱的点。如果你是一名设计师，你愿以通过设计帮助我完善我的网站，除了作品署名之外，作为回报我也可以按照对等原则帮助你完成一些开发工作，比如你的个人网站、小程序之类的。
     </n-p>
     <n-h4>问题</n-h4>
     <n-p :depth="3" class="mcswift-paragraph">
@@ -52,7 +52,8 @@ updateMeta({ title: "联系我" });
 </template>
 <style scoped lang="scss">
 .connect{
-  padding: 30px, 0;
+  padding: 30px 0;
+  padding-bottom: 100px;
   font-size: 16px;
   margin: 0 auto;
   max-width: 800px;
