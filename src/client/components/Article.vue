@@ -21,10 +21,12 @@ import {
   PropType,
   ref,
   shallowRef,
+watch,
 } from "vue";
+import { useRoute } from "vue-router";
+import axios from "axios";
 import "vitepress/dist/client/theme-default/styles/vars.css";
 import "vitepress/dist/client/theme-default/styles/code.css";
-
 const props = defineProps({
   component: {
     type: Object as PropType<ReturnType<typeof defineComponent>>,
@@ -93,6 +95,20 @@ const getTitles = () => {
 
   return [...groupMap.values()].filter((item) => item.level === "2");
 };
+const route = useRoute()
+watch(()=>route.fullPath, (n,o)=>{
+  if(n.startsWith('/blog')){
+    axios.request({
+      url:"https://log.mcswift.me/aticle/vist",
+      method:"POST",
+      data:{
+        path:n
+      }
+    })
+  }
+},{
+  immediate:true
+})
 onMounted(() => {
   //@ts-ignore
   articleNavList.value = getTitles();

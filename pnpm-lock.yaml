@@ -20,6 +20,7 @@ specifiers:
   '@vueuse/head': ^0.6.0
   animate.css: ^4.1.1
   autoprefixer: ^10.4.2
+  axios: ^0.26.1
   compression: ^1.7.4
   cross-env: ^7.0.3
   esbuild: ^0.13.15
@@ -62,6 +63,7 @@ dependencies:
   '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.32
   '@vueuse/head': registry.npmmirror.com/@vueuse/head/0.6.0_vue@3.2.32
   animate.css: registry.npmmirror.com/animate.css/4.1.1
+  axios: registry.npmmirror.com/axios/0.26.1
   eslint: registry.npmmirror.com/eslint/8.13.0
   express: registry.npmmirror.com/express/4.17.3
   highlight.js: registry.npmmirror.com/highlight.js/11.5.1
@@ -1416,6 +1418,16 @@ packages:
       postcss-value-parser: registry.npmmirror.com/postcss-value-parser/4.2.0
     dev: true
 
+  registry.npmmirror.com/axios/0.26.1:
+    resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==, registry: https://r.npm.taobao.org/, tarball: https://registry.npmmirror.com/axios/-/axios-0.26.1.tgz}
+    name: axios
+    version: 0.26.1
+    dependencies:
+      follow-redirects: registry.npmmirror.com/follow-redirects/1.14.9
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   registry.npmmirror.com/balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==, registry: https://r.npm.taobao.org/, tarball: https://registry.npmmirror.com/balanced-match/-/balanced-match-1.0.2.tgz}
     name: balanced-match
@@ -2726,6 +2738,18 @@ packages:
     resolution: {integrity: sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==, registry: https://r.npm.taobao.org/, tarball: https://registry.npmmirror.com/flatted/-/flatted-3.2.5.tgz}
     name: flatted
     version: 3.2.5
+    dev: false
+
+  registry.npmmirror.com/follow-redirects/1.14.9:
+    resolution: {integrity: sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==, registry: https://r.npm.taobao.org/, tarball: https://registry.npmmirror.com/follow-redirects/-/follow-redirects-1.14.9.tgz}
+    name: follow-redirects
+    version: 1.14.9
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
     dev: false
 
   registry.npmmirror.com/form-data/4.0.0:
