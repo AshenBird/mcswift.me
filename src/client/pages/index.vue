@@ -10,7 +10,7 @@ import {
 } from "@vicons/antd";
 import { inject } from "vue";
 
-const store = inject("custoStore") as Store;
+const store = inject("customStore") as Store;
 store.title = "首页";
 </script>
 

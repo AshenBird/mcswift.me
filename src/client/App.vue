@@ -10,8 +10,11 @@ import { computed, onMounted, provide, reactive, ref, watch } from "vue";
 import DefaultLayout from "@/layouts/default.vue";
 import { useHead } from "@vueuse/head";
 import "animate.css"
+import axios from "axios";
+import {useRoute} from "vue-router"
 
-
+const START_TIME = Date.now();
+const route = useRoute();
 
 const metaSource = reactive({
   title:"McSwift",
@@ -45,9 +48,6 @@ const head = computed(()=>({
 
 useHead(head);
 
-
-
-
 const updateMeta = (meta: { title: string; description: string, image:string }) => {
   if (meta.title) {
     metaSource.title = `McSwift - ${meta.title}`
@@ -63,9 +63,34 @@ const isDark = computed(() => store.theme === "dark");
 const theme = computed(() => (store.theme === "dark" ? darkTheme : null));
 
 const isMounted = ref(false);
+const visitLog = async ()=>{
+  const { data } = await axios.request({
+    url:"https://log.mcswift.me/app",
+    method:"POST",
+    data:{
+      time:Date.now()-START_TIME,
+      entryPoint: route.fullPath,
+    }
+  })
+  const sessionID = data.id
+  watch(()=>route.fullPath, (n,o)=>{
+    axios.request({
+      url:"https://log.mcswift.me/record",
+      method:"POST",
+      data:{
+        path:n,
+        session:sessionID
+      }
+    })
+  },{
+    immediate:true
+  })
+}
+
 onMounted(async () => {
   isMounted.value = true;
   store.theme = localStorage.getItem("theme") || useOsTheme().value || "light";
+  visitLog();
 });
 
 // 监听主题变化并记录
@@ -77,7 +102,8 @@ watch(
     localStorage.setItem("theme", n);
   }
 );
-provide("custoStore", store);
+
+provide("customStore", store);
 </script>
 
 <template>

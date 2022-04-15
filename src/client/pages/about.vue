@@ -4,7 +4,7 @@ import { NA, NH2, NH3, NUl, NLi,NIcon, NP } from "naive-ui";
 import RemoteLogo from "@/components/RemoteLogo.vue";
 import { inject } from "vue";
 import { GithubFilled as GithubIcon } from "@vicons/antd"
-const store = inject("custoStore") as Store;
+const store = inject("customStore") as Store;
 const updateMeta = inject("updateMeta") as UpdateMeta;
 updateMeta({ title: "关于本站" });
 </script>

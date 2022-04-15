@@ -6,7 +6,7 @@ import { inject, watch, ref } from "vue";
 import { Moon as DarkIcon, Sunny as LightIcon } from "@vicons/ionicons5";
 import { useRoute, useRouter } from "vue-router";
 
-const store = inject("custoStore") as Store;
+const store = inject("customStore") as Store;
 const route = useRoute();
 const router = useRouter();
 

@@ -2,7 +2,7 @@
 import {NText, NUl, NLi, NP, NH4} from "naive-ui"
 import type {Store, UpdateMeta} from "../../../interface"
 import { inject } from "vue"
-const store = inject("custoStore") as Store
+const store = inject("customStore") as Store
 const updateMeta = inject("updateMeta") as UpdateMeta;
 updateMeta({ title: "联系我" });
 </script>
