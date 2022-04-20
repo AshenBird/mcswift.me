@@ -23,7 +23,6 @@ export default ()=>[
       description:"工具与工具体系,工具理论,工具选用,通过选择工具构建个人的工具体系实现各种程度的自动化"
     },
     children:[
-
       {
         path:"app",
         meta:{
@@ -77,6 +76,13 @@ export default ()=>[
         },
         component:()=>import("./note/linux-env.md")
       },
+      // {
+      //   path:"",
+      //   meta:{
+      //     title:"",
+      //   },
+      //   component:()=>import("./note/auth.md")
+      // },
     ]
   },
   {
