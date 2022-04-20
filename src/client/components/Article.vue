@@ -215,7 +215,7 @@ onMounted(() => {
     padding-bottom: 50px;
     padding-top: 15px;
   }
-  & :deep(.blog-side-nav) {
+  :deep(.blog-side-nav) {
     height: 30px;
     margin-right: 10px;
   }
