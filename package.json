@@ -5,16 +5,10 @@
   },
   "private": true,
   "scripts": {
-    "dev": "cross-env MODE=CSR vite",
-    "dev:ssr": "cross-env MODE=SSR esno src/server/main.ts",
-    "build:ssr": "npm run build:client && npm run build:server",
-    "build:noExternal": "npm run build:client && npm run build:server:noExternal",
-    "build:client": "vite build --ssrManifest --outDir dist/client",
-    "build:server": "vite build --ssr src/client/entry-server.ts --outDir dist/server",
-    "build:server:noExternal": "vite build --config vite.config.noexternal.ts --ssr src/entry-server.ts --outDir dist/server",
-    "build:ssg": "cross-env MODE=SSG vite-ssg build --outDir dist/static",
-    "serve": "cross-env NODE_ENV=production node server",
-    "debug": "node --inspect-brk server"
+    "dev": "cd ./packages/website && cross-env MODE=CSR vite",
+    "dev:ssr": "cd ./packages/website && cross-env MODE=SSR esno src/server/main.ts",
+    "build:client": "cd ./packages/website && vite build --ssrManifest --outDir dist/client",
+    "build:ssg": "cd ./packages/website && cross-env MODE=SSG vite-ssg build --outDir dist/static"
   },
   "devDependencies": {
     "@types/escape-html": "^1.0.2",
