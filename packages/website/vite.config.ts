@@ -102,7 +102,7 @@ export default defineConfig({
     port: 9000
   },
   build: {
-    outDir: process.env.MODE === "SSG" ? "dist/static" : "dist",
+    outDir: process.env.MODE === "SSG" ? "../../dist/static" : "../../dist",
     // minify: false,
   },
   ssgOptions: {
