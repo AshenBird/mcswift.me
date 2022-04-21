@@ -15,8 +15,7 @@
     "chance": "^1.1.8",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
-    "rxdb": "^11.6.0",
-    "rxjs": "^7.5.5"
+    "lowdb": "^3.0.0"
   },
   "devDependencies": {
     "@types/koa": "^2.13.4",
