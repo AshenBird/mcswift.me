@@ -8,6 +8,8 @@ import { highlight } from "./markdown-it-plugins/highlight"
 import { highlightLinePlugin } from "./markdown-it-plugins/highlightLines"
 import { preWrapperPlugin } from "./markdown-it-plugins/preWrapper"
 import { lineNumberPlugin } from "./markdown-it-plugins/lineNumbers"
+import { containerPlugin } from "./markdown-it-plugins/containers"
+
 // @ts-ignore
 import taskListPlugin from "markdown-it-task-lists"
 // @ts-ignore
@@ -30,10 +32,21 @@ export default defineConfig({
     VueJsx(),
     Markdown({
       transforms: {
+        // before:(code:string)=>{
+        //   let result = code
+        //   const keywordPool: [string, string][] = [
+        //   ]
+        //   for (const [s, t] of keywordPool) {
+        //     result = result.replace(new RegExp(s, "g"), t)
+        //   }
+        //   return result
+        // },
         after: (code: string, id: string) => {
           // 使用 naive-ui 组件替代原生标签
           let result = code
           const keywordPool: [string, string][] = [
+            [`:::warning`, `<n-alert title="Warning" type="warning">`],
+            [`:::`, `</n-alert>`],
             ["<p>", `<n-p>`],
             ["</p>", "</n-p>"],
             [`<h1>`, `<n-h1>`],
@@ -60,7 +73,7 @@ export default defineConfig({
             ["<li", "<n-li "],
             ["</li>", "</n-li>"],
             ["<mark", `<n-text tag="mark" type="warning"`],
-            ["</mark>", "</n-text>"],
+            ["</mark>", "</n-text>"]
             // [
             //   `<input class="task-list-item-checkbox" checked="" disabled="" type="checkbox">`,
             //   `<n-checkbox :checked="true" style="cursor: auto;"></n-checkbox>`
@@ -73,8 +86,12 @@ export default defineConfig({
           for (const [s, t] of keywordPool) {
             result = result.replace(new RegExp(s, "g"), t)
           }
+          
+          // const [ tem, s ] = result.split(`</template>`)
+          // result = tem + `<n-divider title-placement="left">到底了</n-divider>` +`</template>`+ s + markdownScripts
           result = result.slice(0, -6) + `<n-divider title-placement="left">到底了</n-divider></div>`
           result += markdownScripts;
+          // console.log(result)
           return result
         }
       },

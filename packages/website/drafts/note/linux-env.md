@@ -23,6 +23,17 @@ sudo apt install unzip
 sudo apt install git
 ```
 
+### zsh
+
+参考：[Oh My Zsh - a delightful & open source framework for Zsh](https://ohmyz.sh/)
+
+```bash
+sudo apt install zsh
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+```
+
 ### fnm/node.js
 
 我使用 fnm 来维护 node.js 的版本。
@@ -37,18 +48,9 @@ corepack prepare pnpm@latest --activate
 
 ```
 
-### zsh
-
-
-
-参考：[Oh My Zsh - a delightful & open source framework for Zsh](https://ohmyz.sh/)
-
-```bash
-sudo apt install zsh
-
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-```
+:::warning
+因为 fnm 的工作原理，是在 shell 的配置文件中加入对应的环境变量。所以，要注意，安装的时候是不是安装在自己常用的 shell 上。或者你需要在其他 shell 中也进行安装，请参考 fnm 文档。
+:::
 
 ### Docker
 
@@ -81,6 +83,3 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 
 sudo chmod +x /usr/local/bin/docker-compose
 ```
-
-
-

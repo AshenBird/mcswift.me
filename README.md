@@ -18,6 +18,16 @@ npm i
 
 ```
 
+### 暂时需要锁定版本的依赖
+
+#### vite-plugin-md 0.11.9
+
+升级到 0.12 后， transforms 钩子中的 after 函数无法正确起作用。
+
+#### vite-ssg 0.15.5
+
+更高版本的 vite-ssg 存在与 naive-ui 的兼容问题。不确定是，哪个包的问题。暂时通过锁定 vite-ssg 版本来避免。
+
 ## Development | 开发
 
 Start the development server on <http://localhost:3000>  
@@ -34,7 +44,7 @@ npm run dev
 
 ```
 
-### 服务端渲染模式（ SSR 服务端渲染 ）
+### 服务端渲染模式（ SSR 服务端渲染 ） --TODO
 
 服务端渲染模式尚不健全
 
@@ -63,7 +73,7 @@ npm run build:client
 
 ```
 
-### 服务端渲染单页面模式（ SSR 服务端渲染 ）
+### 服务端渲染单页面模式（ SSR 服务端渲染 ）--TODO
 
 服务端渲染模式尚不健全
 
