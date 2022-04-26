@@ -71,7 +71,10 @@ const visitLog = async ()=>{
       time:Date.now()-START_TIME,
       entryPoint: route.fullPath,
     }
+  }).catch(()=>{
+    return { data:false}
   })
+  if(!data)return;
   const sessionID = data.id
   watch(()=>route.fullPath, (n,o)=>{
     axios.request({
