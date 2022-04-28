@@ -65,7 +65,7 @@ export default defineConfig({
             ["</blockquote>", "</n-blockquote>"],
             ["<img", "<n-image"],
             ["<a", "<n-a"],
-            ["</a>", "</n-a>"],
+            ["</a>", `&nbsp;<n-icon style="top:1px;"><ExternalLinkAlt/></n-icon></n-a>`],
             ["<ol>", "<n-ol>"],
             ["</ol>", "</n-ol>"],
             ["<ul", "<n-ul "],
