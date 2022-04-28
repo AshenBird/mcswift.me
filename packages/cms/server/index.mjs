@@ -3,9 +3,13 @@ import Koa from "koa";
 import router from "./router/index.mjs";
 import bodyParser from "koa-bodyparser";
 import cors from "@koa/cors";
-// dotenv.config();
+import { extendCtx } from "./utils.mjs"
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 
 const app = new Koa();
+
+extendCtx(app, "prisma", prisma);
 
 app
   .use(
