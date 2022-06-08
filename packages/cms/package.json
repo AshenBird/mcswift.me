@@ -6,6 +6,8 @@
     "start": "hooks start",
     "dev": "hooks dev",
     "build": "hooks build",
+    "migrate":"prisma migrate dev",
+    "gen":"prisma generate",
     "check": "vue-tsc --noEmit"
   },
   "dependencies": {
@@ -26,8 +28,5 @@
     "esno": "^0.14.0",
     "prisma": "^3.8.1",
     "typescript": "^4.3.5"
-  },
-  "prisma": {
-    "seed": "esno prisma/seed.ts"
   }
 }

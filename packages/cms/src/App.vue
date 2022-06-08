@@ -2,7 +2,7 @@
 import { defineComponent } from 'vue';
 import { createLayout, Providers } from "grip.js"
 import type { MenuOption } from "naive-ui"
-import { NMenu } from "naive-ui"
+import { NMenu,NButton,NSpace } from "naive-ui"
 const { component: Layout } = createLayout();
 
 const createLabel = (text:string)=>()=> (<div>{text}</div>)
@@ -24,7 +24,11 @@ const menuOptions:MenuOption[] =[{
     <Providers>
       <Layout>
         <template #head>
-          <div>head</div>
+          <n-space>
+            <n-button>匹配文章文件</n-button>
+            <n-button>生成文章路由</n-button>
+            <n-button>发布网站</n-button>
+          </n-space>
         </template>
         <template #side>
           <n-menu :options="menuOptions"></n-menu>
