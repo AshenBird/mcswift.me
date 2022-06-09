@@ -15,8 +15,9 @@ model Passage {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   publishedAt DateTime?
-  title       String
+  title       String?
   published   Boolean   @default(false)
+  path        String    @unique
 }
 
 model Collection {
@@ -24,5 +25,5 @@ model Collection {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
-  pid Int
+  pid       Int
 }
