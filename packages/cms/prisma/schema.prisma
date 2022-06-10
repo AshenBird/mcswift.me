@@ -18,6 +18,7 @@ model Passage {
   title       String?
   published   Boolean   @default(false)
   path        String    @unique
+  content     String?
 }
 
 model Collection {

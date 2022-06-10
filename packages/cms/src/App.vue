@@ -1,22 +1,41 @@
 <script setup lang="tsx">
-import { defineComponent } from 'vue';
-import { createLayout, Providers } from "grip.js"
-import type { MenuOption } from "naive-ui"
-import { NMenu,NButton,NSpace } from "naive-ui"
+import { ref, watch } from "vue";
+import { createLayout, Providers } from "grip.js";
+import type { MenuOption } from "naive-ui";
+import { NMenu, NButton, NSpace } from "naive-ui";
+import { RouterView, RouteLocationRaw, RouterLink, useRoute } from "vue-router";
 const { component: Layout } = createLayout();
 
-const createLabel = (text:string)=>()=> (<div>{text}</div>)
+const createTextLabel = (text: string) => () => <div>{text}</div>;
+const createRouterLabel =
+  (text: string, to: RouteLocationRaw = "/") =>
+  () =>
+    <RouterLink to={to}>{text}</RouterLink>;
 
-const menuOptions:MenuOption[] =[{
-  label:createLabel("文章管理"),
-  key:"passage"
-},{
-  label:createLabel("频道管理"),
-  key:"channel"
-},{
-  label:createLabel("标签管理"),
-  key:"tag"
-}]
+const active = ref("/passages");
+const menuOptions: MenuOption[] = [
+  {
+    label: createRouterLabel("文章管理", "/passages"),
+    key: "/passages",
+  },
+  {
+    label: createRouterLabel("频道管理","/channels"),
+    key: "/channels",
+  },
+  {
+    label: createRouterLabel("标签管理","/tags"),
+    key: "/tags",
+  },
+];
+
+const route = useRoute();
+
+watch(
+  () => route.path,
+  (n, o) => {
+    active.value = n;
+  }
+);
 </script>
 
 <template>
@@ -25,15 +44,18 @@ const menuOptions:MenuOption[] =[{
       <Layout>
         <template #head>
           <n-space>
-            <n-button>匹配文章文件</n-button>
             <n-button>生成文章路由</n-button>
             <n-button>发布网站</n-button>
           </n-space>
         </template>
         <template #side>
-          <n-menu :options="menuOptions"></n-menu>
+          <n-menu :options="menuOptions" v-model:value="active"></n-menu>
         </template>
-        <template #default>app</template>
+        <template #default>
+          <div>
+            <router-view></router-view>
+          </div>
+        </template>
       </Layout>
     </Providers>
   </div>
