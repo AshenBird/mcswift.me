@@ -11,8 +11,8 @@ export const routes:RouteRecordRaw[]=[
         component:()=>import("./pages/passages.vue"),
       },
       {
-        path:"channels",
-        component:()=>import("./pages/channels.vue"),
+        path:"menus",
+        component:()=>import("./pages/menu.vue"),
       },
       {
         path:"tags",

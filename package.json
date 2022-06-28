@@ -7,7 +7,7 @@
   "scripts": {
     "cms": "cd ./packages/cms && node ./server/index.mjs",
     "dev:website": "cd ./packages/website && cross-env MODE=CSR vite",
-    "dev:cms": "cd ./packages/cms && vite",
+    "dev:cms": "cd ./packages/cms && yarn dev",
     "dev:ssr": "cd ./packages/website && cross-env MODE=SSR esno src/server/main.ts",
     "build:client": "cd ./packages/website && vite build --ssrManifest --outDir dist/client",
     "build:ssg": "cd ./packages/website && cross-env MODE=SSG vite-ssg build --outDir dist/static"

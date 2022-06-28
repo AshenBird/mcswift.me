@@ -4,6 +4,7 @@ import { createLayout, Providers } from "grip.js";
 import type { MenuOption } from "naive-ui";
 import { NMenu, NButton, NSpace } from "naive-ui";
 import { RouterView, RouteLocationRaw, RouterLink, useRoute } from "vue-router";
+import { generate } from "./api/generate";
 const { component: Layout } = createLayout();
 
 const createTextLabel = (text: string) => () => <div>{text}</div>;
@@ -19,8 +20,8 @@ const menuOptions: MenuOption[] = [
     key: "/passages",
   },
   {
-    label: createRouterLabel("频道管理","/channels"),
-    key: "/channels",
+    label: createRouterLabel("菜单管理","/menus"),
+    key: "/menus",
   },
   {
     label: createRouterLabel("标签管理","/tags"),
@@ -36,6 +37,10 @@ watch(
     active.value = n;
   }
 );
+
+const gen = async()=>{
+  await generate()
+}
 </script>
 
 <template>
@@ -44,7 +49,7 @@ watch(
       <Layout>
         <template #head>
           <n-space>
-            <n-button>生成文章路由</n-button>
+            <n-button @click="gen">生成文章路由</n-button>
             <n-button>发布网站</n-button>
           </n-space>
         </template>

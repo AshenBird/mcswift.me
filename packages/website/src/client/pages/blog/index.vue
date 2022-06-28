@@ -1,7 +1,7 @@
 <script lang="tsx" setup>
 import type { UpdateMeta } from "../../../../interface";
 import { inject, watch, ref, shallowRef, onMounted } from "vue";
-import { NIcon, NMenu, MenuOption, NText, NDrawer, NButton } from "naive-ui";
+import { NIcon, NMenu, MenuOption, NText, NDrawer, NButton, NA } from "naive-ui";
 import { useRoute, RouterLink } from "vue-router";
 import {
   BookOutline as BookOutlineIcon,
@@ -9,7 +9,7 @@ import {
   Menu as MenuIcon,
 } from "@vicons/ionicons5";
 import { ArticleFilled as ArticleIcon } from "@vicons/material";
-import blogConfigs from "%/config";
+import blogConfigs from "../../router/passage-config";
 import { BlogDirectoryConfig } from "../../../../interface";
 
 import MArticle from "@/components/Article.vue";
@@ -24,17 +24,16 @@ const configTransformMenu = (
   for (const item of configs) {
     const fullPath = prefix + "/" + item.path;
     result.push({
-      label: () =>
-        item.children ? (
-          <span>{item.meta.title}</span>
-        ) : (
-          <div
+      label: () =>({
+        folder:(<span>{item.name}</span>),
+        passage:(<div
             onClick={() => (drawerActive.value = false)}
             style="white-space: normal"
           >
-            <RouterLink to={fullPath}>{item.meta.title}</RouterLink>
-          </div>
-        ),
+            <RouterLink to={fullPath}>{item.name}</RouterLink>
+          </div>),
+        link:(<NA href={item.value} target="_blank"></NA>)
+      }[item.type]),
       icon: () => {
         if (!item.children) {
           return (
@@ -85,7 +84,7 @@ const menuOptions = [
     label: rootLink,
     key: "/blog",
   },
-  ...configTransformMenu(blogConfigs()),
+  ...configTransformMenu(blogConfigs),
 ];
 
 // 目录菜单控制

@@ -5,13 +5,22 @@ export interface Store extends UnwrapNestedRefs<{
   title: string;
 }>{}
 
+// export interface BlogDirectoryConfig {
+//   path:string;
+//   meta:{
+//     title:string;
+//   };
+//   fullPath?:string;
+//   component?: () => Promise<typeof import("*.md")>;
+//   children?: BlogDirectoryConfig[];
+// }
+
+
 export interface BlogDirectoryConfig {
+  type:string;
+  name:string;
   path:string;
-  meta:{
-    title:string;
-  };
-  fullPath?:string;
-  component?: () => Promise<typeof import("*.md")>;
+  value:string|(() => Promise<typeof import("*.md")>);
   children?: BlogDirectoryConfig[];
 }
 
