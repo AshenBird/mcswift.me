@@ -22,7 +22,7 @@ const configTransformMenu = (
 ): MenuOption[] => {
   const result = [];
   for (const item of configs) {
-    const fullPath = prefix + "/" + item.path;
+    const fullPath = item.path?prefix + "/" + item.path:prefix;
     result.push({
       label: () =>({
         folder:(<span>{item.name}</span>),

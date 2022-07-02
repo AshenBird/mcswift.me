@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = "file:../../data/database/dev.db"
 }
 
 model Passage {
@@ -19,16 +19,6 @@ model Passage {
   published   Boolean      @default(false)
   path        String       @unique
   content     String?
-  collections Collection[] @relation(references: [id])
-}
-
-model Collection {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  name      String
-  pid       Int       @default(0)
-  passages  Passage[] @relation(references: [id])
 }
 
 model Menu {

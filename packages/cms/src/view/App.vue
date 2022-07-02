@@ -1,13 +1,13 @@
 <script setup lang="tsx">
 import { ref, watch } from "vue";
-import { createLayout, Providers } from "grip.js";
+import {  Providers } from "grip.js";
 import type { MenuOption } from "naive-ui";
 import { NMenu, NButton, NSpace } from "naive-ui";
 import { RouterView, RouteLocationRaw, RouterLink, useRoute } from "vue-router";
-import { generate } from "./api/generate";
-const { component: Layout } = createLayout();
+import { generate } from "../api/generate";
+import { Layout } from "./layout"
 
-const createTextLabel = (text: string) => () => <div>{text}</div>;
+// const createTextLabel = (text: string) => () => <div>{text}</div>;
 const createRouterLabel =
   (text: string, to: RouteLocationRaw = "/") =>
   () =>
@@ -57,9 +57,9 @@ const gen = async()=>{
           <n-menu :options="menuOptions" v-model:value="active"></n-menu>
         </template>
         <template #default>
-          <div>
+          <!-- <div> -->
             <router-view></router-view>
-          </div>
+          <!-- </div> -->
         </template>
       </Layout>
     </Providers>

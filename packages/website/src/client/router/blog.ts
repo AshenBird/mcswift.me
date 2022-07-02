@@ -11,7 +11,7 @@ const flat = (
 ): RouteRecordRaw[] => {
   const result = [] as RouteRecordRaw[];
   for (const item of configs) {
-    const fullPath = prefix + "/" + item.path
+    const fullPath = item.path?prefix + "/" + item.path:prefix
     if (item.type==="passage") {
       result.push({
         path:fullPath,

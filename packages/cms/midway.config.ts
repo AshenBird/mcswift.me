@@ -5,5 +5,10 @@ import { defineConfig } from '@midwayjs/hooks-kit';
 export default defineConfig({
   vite: {
     plugins: [vue(),jsx()],
+    resolve:{
+      alias:{
+        vue:"vue/dist/vue.esm-bundler.js"
+      }
+    }
   },
 });

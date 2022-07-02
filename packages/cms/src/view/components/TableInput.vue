@@ -19,7 +19,6 @@ const update = (v:string)=>{
 }
 
 const action = ()=>{
-  console.log("a")
   if(editing.value){
     emits("update:value", temp.value)
     editing.value = false

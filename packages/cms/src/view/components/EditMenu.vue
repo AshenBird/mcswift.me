@@ -13,8 +13,8 @@ import {
   NSpace
 } from "naive-ui";
 import { ref, PropType } from "vue";
-import { addMenu, getMenuById, updateMenu } from "../api/menu";
-import { getAllPassage } from "../api/passages";
+import { addMenu, getMenuById, updateMenu } from "../../api/menu";
+import { getAllPassage } from "../../api/passages";
 
 const emit = defineEmits({
   success: null,

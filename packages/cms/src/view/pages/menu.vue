@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { Menu } from ".prisma/client";
 import { computed, ref, VNode } from "vue";
-import { delMenu, getAllMenu, updateMenu } from "../api/menu";
+import { delMenu, getAllMenu, updateMenu } from "../../api/menu";
 import { NDataTable, NSelect, NButton, NSpace } from "naive-ui";
 import TableInput from "../components/TableInput.vue";
 import EditMenu from "../components/EditMenu.vue";

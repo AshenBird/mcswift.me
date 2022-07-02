@@ -18,7 +18,7 @@
     "types": ["vite/client"],
     "outDir": "./dist"
   },
-  "include": ["./src","./src/**/*.vue", "dist/host.js" ],
+  "include": ["./src","./src/**/*.vue", "dist/host.js", "markdown-it-plugins/*.ts" ],
   "ts-node": {
     "compilerOptions": {
       "module": "commonjs"

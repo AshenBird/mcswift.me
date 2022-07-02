@@ -42,7 +42,7 @@ export const checkPassages = async () => {
 
 checkPassages();
 
-export const passageChangeWatcher = chokidar
-  .watch(passagesPath, { ignoreInitial: true })
-  .on("add", (path) => addPassageRecord(path))
-  .on("unlink", (path) => delPassageRecord(path));
+// export const passageChangeWatcher = chokidar
+//   .watch(passagesPath, { ignoreInitial: true })
+//   .on("add", (path) => addPassageRecord(path))
+//   .on("unlink", (path) => delPassageRecord(path));

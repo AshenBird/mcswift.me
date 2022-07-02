@@ -1,5 +1,5 @@
 import { Api, Post } from "@midwayjs/hooks";
-import { Menu } from "@prisma/client";
+import { Menu, Passage } from "@prisma/client";
 import { prisma } from "./prisma";
 import * as uuid from "uuid";
 import fs from "fs-extra";
@@ -15,7 +15,7 @@ interface MenuNode {
 export const generate = Api(Post(), async () => {
   const menus = await prisma.menu.findMany();
   const replaceMap = new Map<string, string>();
-  const result = [];
+  const result:MenuNode[] = [];
   const routerPath = `../website/src/client/router`
   const plant = async (l: Menu[]) => {
     const map = new Map<number, MenuNode>();
@@ -30,11 +30,11 @@ export const generate = Api(Post(), async () => {
       }
       if (type === "passage") {
         const key = uuid.v1();
-        const { path } = await prisma.passage.findUnique({
+        const { path } = (await prisma.passage.findUnique({
           where: {
             id: Number(value),
           },
-        });
+        })) as Passage;
         replaceMap.set(
           key,
           `()=>import("${Path.posix.relative(routerPath,`../data/drafts/${path}`)}")`
@@ -46,13 +46,13 @@ export const generate = Api(Post(), async () => {
       map.set(id, item);
     }
     for (const v of l) {
-      const item = map.get(v.id);
+      const item = map.get(v.id) as MenuNode;
       if (v.pid === 0) {
         result.push(item);
         continue;
       }
-      const p = map.get(v.pid);
-      p.children.push(item);
+      const p = map.get(v.pid) as MenuNode;
+      (p.children as MenuNode[]).push(item);
     }
     let str = `export default ${JSON.stringify(result, (k, v) => v, 2)}`;
     for (const [key, value] of replaceMap) {
